@@ -11,11 +11,15 @@ import {
   getFoodCategories,
   getRestaurantDetails,
 } from '../fetches'
+import { TiDelete } from 'react-icons/ti'
 
 const Menu = () => {
   const params = useLocation()
   const searchParams = new URLSearchParams(params.search)
   const restaurant = searchParams.get('restaurant')
+
+  const [order, setOrder] = useState([])
+  const [orderTotal, setOrderTotal] = useState(0)
 
   const { data: fetchMenu, isLoading: fetchMenuLoading } = useQuery(
     ['menuItems', restaurant],
@@ -52,12 +56,48 @@ const Menu = () => {
     },
   )
 
-  useEffect(() => {
-    setTimeout(() => {
-      console.log(fetchMenu)
-      console.log(menuCategories)
-    }, 1000)
-  })
+  const adjustOrderTotal = (price) => {
+    setOrderTotal(orderTotal + price)
+  }
+
+  const reduceOrderTotal = (price) => {
+    setOrderTotal(orderTotal - price)
+  }
+
+  const addItemToOrder = (item) => {
+    if (order.includes(item)) {
+      const index = order.indexOf(item)
+      order[index].quantity++
+      setOrder([...order])
+      setTimeout(() => {
+        adjustOrderTotal(item.price)
+      }, 500)
+    } else {
+      item.quantity = 1
+      setOrder([...order, item])
+      setTimeout(() => {
+        adjustOrderTotal(item.price)
+      }, 500)
+    }
+  }
+
+  const removeFromOrder = (menuItem) => {
+    if (order.includes(menuItem)) {
+      const index = order.indexOf(menuItem)
+      if (order[index].quantity > 1) {
+        order[index].quantity--
+        setOrder([...order])
+        setTimeout(() => {
+          reduceOrderTotal(menuItem.price)
+        }, 500)
+      } else {
+        setOrder(order.filter((item) => item !== menuItem))
+        setTimeout(() => {
+          reduceOrderTotal(menuItem.price)
+        }, 500)
+      }
+    }
+  }
 
   return (
     <>
@@ -98,7 +138,10 @@ const Menu = () => {
           <div className="d-flex flex-column align-items-center w-100">
             {!fetchMenuLoading &&
               fetchMenu.map((menuItem) => (
-                <div className="menu-item-card d-flex justify-content-center w-75">
+                <div
+                  className="menu-item-card d-flex justify-content-center w-75"
+                  onClick={() => addItemToOrder(menuItem)}
+                >
                   <div className="d-flex justify-content-between w-25 mt-3">
                     <p>{menuItem.name}</p> <strong>{menuItem.price}</strong>
                   </div>
@@ -108,6 +151,17 @@ const Menu = () => {
 
           <div className="order-slip w-25">
             <h1>Your Order</h1>
+            <ul>
+              {order.map((item) => (
+                <>
+                  <li>
+                    {item.quantity} x {item.name}{' '}
+                    <TiDelete onClick={() => removeFromOrder(item)} />
+                  </li>
+                </>
+              ))}
+            </ul>
+            Order Total: {orderTotal}
           </div>
         </div>
       </Container>
