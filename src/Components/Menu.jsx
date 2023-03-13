@@ -1,0 +1,118 @@
+import { Rating } from 'react-simple-star-rating'
+
+import Navbar from './Layout/Navbar'
+import { useEffect } from 'react'
+import { useQuery } from 'react-query'
+import { useState } from 'react'
+import { useLocation, useSearchParams } from 'react-router-dom'
+import { Container, Row } from 'react-bootstrap'
+import {
+  getMenuForRestaurant,
+  getFoodCategories,
+  getRestaurantDetails,
+} from '../fetches'
+
+const Menu = () => {
+  const params = useLocation()
+  const searchParams = new URLSearchParams(params.search)
+  const restaurant = searchParams.get('restaurant')
+
+  const { data: fetchMenu, isLoading: fetchMenuLoading } = useQuery(
+    ['menuItems', restaurant],
+    ({ queryKey }) => getMenuForRestaurant(queryKey[1]),
+    {
+      refetchOnWindowFocus: false,
+      refetchOnmount: false,
+      refetchOnReconnect: false,
+      retry: false,
+      staleTime: 59916,
+    },
+  )
+
+  const {
+    data: RestaurantDetails,
+    isLoading: RestaurantDetailsLoading,
+  } = useQuery(
+    ['RestaurantDetails', restaurant],
+    ({ queryKey }) => getRestaurantDetails(queryKey[1]),
+    {
+      refetchOnWindowFocus: false,
+      refetchOnmount: false,
+      refetchOnReconnect: false,
+      retry: false,
+      staleTime: 59916,
+    },
+  )
+
+  const { data: menuCategories, isLoading: menuCategoriesLoading } = useQuery(
+    ['menuCategories'],
+    getFoodCategories,
+    {
+      refetchOnWindowFocus: false,
+    },
+  )
+
+  useEffect(() => {
+    setTimeout(() => {
+      console.log(fetchMenu)
+      console.log(menuCategories)
+    }, 1000)
+  })
+
+  return (
+    <>
+      <Navbar />
+
+      <Container className="d-flex flex-column justify-content-between mt-5">
+        <div className="menuHeader justify-content-center w-100">
+          <div className="search-result-card mt-5 d-flex">
+            <img
+              src="https://picsum.photos/300/150"
+              className="search-card-image"
+            />
+            <div className="d-flex flex-column align-items-center w-75">
+              <h1 className="mt-1">
+                {!RestaurantDetailsLoading && RestaurantDetails.name}
+              </h1>
+              <div className="d-flex justify-content-between w-50">
+                <p>{!RestaurantDetailsLoading && RestaurantDetails.cuisine}</p>
+                <div className="d-flex">
+                  <Rating size={30} readonly={true} initialValue="5" />
+                </div>
+              </div>
+              <div className="d-flex justify-content-between w-50">
+                <p>Minimum Order: £15</p>
+                <p>Delivery: 50-60 Mins</p>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div className="d-flex justify-content-between mt-5">
+          <div className="category-container w-25">
+            <h1>Categories</h1>
+            <ul>
+              {!menuCategoriesLoading &&
+                menuCategories.map((category) => <li>{category}</li>)}
+            </ul>
+          </div>
+          <div className="d-flex flex-column align-items-center w-100">
+            {!fetchMenuLoading &&
+              fetchMenu.map((menuItem) => (
+                <div className="menu-item-card d-flex justify-content-center w-75">
+                  <div className="d-flex justify-content-between w-25 mt-3">
+                    <p>{menuItem.name}</p> <strong>{menuItem.price}</strong>
+                  </div>
+                </div>
+              ))}
+          </div>
+
+          <div className="order-slip w-25">
+            <h1>Your Order</h1>
+          </div>
+        </div>
+      </Container>
+    </>
+  )
+}
+
+export default Menu
