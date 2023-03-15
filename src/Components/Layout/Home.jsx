@@ -35,7 +35,12 @@ const Home = () => {
               <BiCurrentLocation />
             </InputGroup.Text>
           </InputGroup>
-          <Button className="w-100" variant="danger" onClick={handleSearch}>
+          <Button
+            type="submit"
+            className="w-100"
+            variant="danger"
+            onClick={handleSearch}
+          >
             Search
           </Button>
         </Form>

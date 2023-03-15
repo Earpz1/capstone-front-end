@@ -5,9 +5,14 @@ import { useState } from 'react'
 import AccountSidebar from './Layout/AccountSidebar'
 import { useNavigate } from 'react-router-dom'
 import { useQueryClient } from 'react-query'
+import axios from 'axios'
 
 const ConvertAccount = () => {
   const queryClient = useQueryClient()
+
+  const accessToken = {
+    headers: { Authorization: `Bearer` + localStorage.getItem('accessToken') },
+  }
 
   const navigate = useNavigate()
   const [convertSuccess, setConvertSuccess] = useState(false)
@@ -34,8 +39,16 @@ const ConvertAccount = () => {
         body: JSON.stringify(postData),
       }),
     {
-      onSuccess: () => {
+      onSuccess: async (data) => {
         queryClient.invalidateQueries('userDetails')
+        const response = await data.json()
+        localStorage.setItem('accessToken', response.accessToken)
+        createRestaurant({
+          name: '',
+          address: '',
+          cuisine: '',
+        })
+        navigate('/restaurantDetails')
       },
     },
   )
@@ -46,16 +59,6 @@ const ConvertAccount = () => {
     convertAccount({
       role: 'owner',
     })
-
-    setTimeout(() => {
-      createRestaurant({
-        ownerID: '1',
-        name: 'test',
-        address: 'test',
-        cuisine: 'test',
-      })
-    }, 500)
-    navigate('/restaurantDetails')
   }
 
   return (

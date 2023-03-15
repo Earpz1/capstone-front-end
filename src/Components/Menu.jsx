@@ -69,15 +69,11 @@ const Menu = () => {
       const index = order.indexOf(item)
       order[index].quantity++
       setOrder([...order])
-      setTimeout(() => {
-        adjustOrderTotal(item.price)
-      }, 500)
+      adjustOrderTotal(item.price)
     } else {
       item.quantity = 1
       setOrder([...order, item])
-      setTimeout(() => {
-        adjustOrderTotal(item.price)
-      }, 500)
+      adjustOrderTotal(item.price)
     }
   }
 
@@ -87,16 +83,17 @@ const Menu = () => {
       if (order[index].quantity > 1) {
         order[index].quantity--
         setOrder([...order])
-        setTimeout(() => {
-          reduceOrderTotal(menuItem.price)
-        }, 500)
+        reduceOrderTotal(menuItem.price)
       } else {
         setOrder(order.filter((item) => item !== menuItem))
-        setTimeout(() => {
-          reduceOrderTotal(menuItem.price)
-        }, 500)
+        reduceOrderTotal(menuItem.price)
       }
     }
+  }
+
+  function round(num) {
+    var m = Number((Math.abs(num) * 100).toPrecision(15))
+    return (Math.round(m) / 100) * Math.sign(num)
   }
 
   return (
@@ -149,7 +146,7 @@ const Menu = () => {
               ))}
           </div>
 
-          <div className="order-slip w-25">
+          <div className="order-slip d-flex flex-column align-items-center w-25">
             <h1>Your Order</h1>
             <ul>
               {order.map((item) => (
@@ -161,7 +158,7 @@ const Menu = () => {
                 </>
               ))}
             </ul>
-            Order Total: {orderTotal}
+            Order Total: £{round(orderTotal)}
           </div>
         </div>
       </Container>

@@ -20,7 +20,7 @@ const RestaurantDetails = () => {
     },
   )
 
-  const { mutate: createRestaurant } = useMutation((postData) =>
+  const { mutate: editRestaurant } = useMutation((postData) =>
     fetch('http://localhost:3001/restaurant/editDetails', {
       method: 'PUT',
       headers: {
@@ -60,8 +60,7 @@ const RestaurantDetails = () => {
   const handleSubmit = (event) => {
     event.preventDefault()
 
-    createRestaurant({
-      ownerID: tokenData.id,
+    editRestaurant({
       name: restaurantName,
       address: restaurantAddress,
       cuisine: cuisine,
