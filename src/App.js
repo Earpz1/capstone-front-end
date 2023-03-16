@@ -12,6 +12,7 @@ import RestaurantDetails from './Components/RestaurantDetails'
 import SearchResults from './Components/SearchResults'
 import ManageMenu from './Components/ManageMenu'
 import Menu from './Components/Menu'
+import Checkout from './Components/Checkout'
 
 function App() {
   const client = new QueryClient()
@@ -29,6 +30,7 @@ function App() {
           <Route path="/search" element={<SearchResults />} />
           <Route path="/manageMenu" element={<ManageMenu />} />
           <Route path="/menu" element={<Menu />} />
+          <Route path="/checkout" element={<Checkout />} />
         </Routes>
       </Router>
     </QueryClientProvider>

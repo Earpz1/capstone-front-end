@@ -208,14 +208,15 @@ a {
   background-color: rgb(255, 255, 255);
   border: 1px solid gray;
   border-radius: 10px;
-  min-height: 200px;
+  min-height: 300px;
 }
 
 .category-container {
   background-color: rgb(255, 255, 255);
   border: 1px solid gray;
   border-radius: 10px;
-  min-height: 500px;
+  min-height: 100px;
+  max-height: 200px;
 }
 
 .menu-item-card {

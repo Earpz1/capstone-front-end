@@ -1,19 +1,20 @@
 import { Rating } from 'react-simple-star-rating'
 
 import Navbar from './Layout/Navbar'
-import { useEffect } from 'react'
 import { useQuery } from 'react-query'
 import { useState } from 'react'
-import { useLocation, useSearchParams } from 'react-router-dom'
-import { Container, Row } from 'react-bootstrap'
+import { useLocation, useNavigate } from 'react-router-dom'
+import { Container, Button } from 'react-bootstrap'
 import {
   getMenuForRestaurant,
   getFoodCategories,
   getRestaurantDetails,
 } from '../fetches'
 import { TiDelete } from 'react-icons/ti'
+import { useMutation } from 'react-query'
 
 const Menu = () => {
+  const navigate = useNavigate()
   const params = useLocation()
   const searchParams = new URLSearchParams(params.search)
   const restaurant = searchParams.get('restaurant')
@@ -96,6 +97,31 @@ const Menu = () => {
     return (Math.round(m) / 100) * Math.sign(num)
   }
 
+  const { mutate: placeOrder } = useMutation(
+    (postData) =>
+      fetch('http://localhost:3001/orders/create', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          Authorization: 'Bearer ' + localStorage.getItem('accessToken'),
+        },
+        body: JSON.stringify(postData),
+      }),
+    {
+      onSuccess: async (data) => {
+        const response = await data.json()
+        setOrder([])
+        navigate(`/checkout?orderID=${response._id}`)
+      },
+    },
+  )
+
+  const handleOrder = () => {
+    placeOrder({
+      orderedItems: order,
+      orderStatus: 'Awaiting Payment',
+    })
+  }
   return (
     <>
       <Navbar />
@@ -145,7 +171,6 @@ const Menu = () => {
                 </div>
               ))}
           </div>
-
           <div className="order-slip d-flex flex-column align-items-center w-25">
             <h1>Your Order</h1>
             <ul>
@@ -159,6 +184,9 @@ const Menu = () => {
               ))}
             </ul>
             Order Total: £{round(orderTotal)}
+            <Button variant="danger mt-2" onClick={handleOrder}>
+              Place Order
+            </Button>
           </div>
         </div>
       </Container>

@@ -227,3 +227,24 @@ export const getRestaurantDetails = async (restaurantID) => {
     }
   } catch (error) {}
 }
+
+//Get specfic order
+export const getOrder = async (orderID) => {
+  const options = {
+    method: 'GET',
+    headers: {
+      Authorization: 'Bearer ' + localStorage.getItem('accessToken'),
+    },
+  }
+
+  const fetchURL = `http://localhost:3001/orders/${orderID}`
+
+  try {
+    let response = await fetch(fetchURL, options)
+    if (response.ok) {
+      let data = await response.json()
+      console.log(data)
+      return data
+    }
+  } catch (error) {}
+}
