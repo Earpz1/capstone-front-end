@@ -72,7 +72,10 @@ const SearchResults = () => {
         {!searchResultsLoading &&
           searchResults.map((result) => (
             <>
-              <Link to={`/menu?restaurant=${result._id}`}>
+              <Link
+                to={`/menu?restaurant=${result._id}`}
+                className="search-link"
+              >
                 <div className="search-result-card mt-5 d-flex">
                   <img
                     src="https://picsum.photos/300/150"

@@ -1,11 +1,14 @@
 @import url('https://fonts.googleapis.com/css2?family=Tilt+Warp&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Roboto&display=swap');
 
 #root {
-  background-color: #ffffff;
+  background-color: #fcfcfc;
+  font-family: 'Roboto', sans-serif;
 }
 
 html {
-  background-color: #ffffff;
+  background-color: #fcfcfc;
+  font-family: 'Roboto', sans-serif;
 }
 
 a {
@@ -23,15 +26,12 @@ a {
 
 .left-nav {
   font-size: 4rem;
-}
-
-.burger-icon {
-  font-size: 6rem;
+  margin-left: 100px;
 }
 
 .left-nav span {
-  font-family: 'Tilt Warp', cursive;
-  margin-left: 15px;
+  font-family: 'Roboto', sans-serif;
+  margin-left: 20px;
   color: red;
   font-weight: 700;
 }
@@ -99,12 +99,12 @@ a {
   object-fit: cover;
   position: absolute;
   width: 100%;
-  height: 500px;
+  height: 450px;
 }
 
 .search-container {
   position: relative;
-  top: 400px;
+  top: 325px;
   left: 33%;
   width: 33%;
   height: 200px;
@@ -189,8 +189,30 @@ a {
   margin-left: 0px;
   padding-left: 0px;
   padding-right: 0px;
-  background-color: antiquewhite;
+  background-color: #ffffff;
+  border: 1px solid rgb(238, 227, 227);
   box-shadow: #b9b7b7 3px 3px 3px;
+}
+
+.top-menu-banner {
+  width: 100%;
+  border-radius: 10px;
+  margin-left: 0px;
+  padding-left: 0px;
+  padding-right: 0px;
+  background-color: #ffffff;
+  border: 1px solid rgb(238, 227, 227);
+  box-shadow: #b9b7b7 3px 3px 3px;
+}
+
+.search-link {
+  text-decoration: none;
+  color: black;
+}
+
+.search-link:hover {
+  text-decoration: none;
+  color: black;
 }
 
 .search-result-card:hover {
@@ -206,17 +228,57 @@ a {
 
 .order-slip {
   background-color: rgb(255, 255, 255);
-  border: 1px solid gray;
+  border: 1px solid rgb(238, 227, 227);
   border-radius: 10px;
   min-height: 300px;
+  padding-left: 20px;
+  padding-right: 20px;
+}
+
+.category-container ul a {
+  text-decoration: none;
+  color: black;
+  padding-left: 0;
+}
+
+.category-container ul {
+  list-style-type: none;
+  width: 100%;
+  text-align: center;
+  padding-left: 0;
+}
+
+.category-container ul li {
+  font-size: 1.1rem;
+  padding-bottom: 10px;
+  padding-top: 10px;
+}
+
+.category-container ul li:hover {
+  transform: scale(1.1);
+  text-decoration: underline #ff0000 3px;
+}
+
+.order-slip ul {
+  list-style-type: none;
+  width: 100%;
+  text-align: center;
+  padding: 0;
+}
+
+.order-slip ul li {
+  padding-bottom: 10px;
+  padding-top: 10px;
+  border-bottom: 1px solid rgb(188, 184, 184);
 }
 
 .category-container {
   background-color: rgb(255, 255, 255);
-  border: 1px solid gray;
-  border-radius: 10px;
+  border-left: 3px solid rgb(246, 9, 9);
   min-height: 100px;
   max-height: 200px;
+  text-align: center;
+  padding-left: 1px;
 }
 
 .menu-item-card {
@@ -224,7 +286,7 @@ a {
   border-radius: 10px;
   margin-right: 10px;
   margin-left: 10px;
-  background-color: rgb(235, 232, 228);
+  border: 1px solid rgb(238, 227, 227);
   box-shadow: #b9b7b7 3px 3px 3px;
   max-height: 100px;
   margin-bottom: 15px;

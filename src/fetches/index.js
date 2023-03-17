@@ -207,6 +207,27 @@ export const getMenuForRestaurant = async (restaurantID) => {
   } catch (error) {}
 }
 
+//Get menu items from a specific category
+export const getMenuItemsFromCategory = async (restaurantID, category) => {
+  const options = {
+    method: 'GET',
+    headers: {
+      Authorization: 'Bearer ' + localStorage.getItem('accessToken'),
+    },
+  }
+
+  const fetchURL = `http://localhost:3001/menuItem/${restaurantID}/${category}`
+
+  try {
+    let response = await fetch(fetchURL, options)
+    if (response.ok) {
+      let data = await response.json()
+      console.log(data)
+      return data
+    }
+  } catch (error) {}
+}
+
 //Get restaurant Details
 export const getRestaurantDetails = async (restaurantID) => {
   const options = {

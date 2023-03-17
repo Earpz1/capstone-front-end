@@ -1,5 +1,4 @@
 import { Rating } from 'react-simple-star-rating'
-
 import Navbar from './Layout/Navbar'
 import { useQuery } from 'react-query'
 import { useState } from 'react'
@@ -9,9 +8,11 @@ import {
   getMenuForRestaurant,
   getFoodCategories,
   getRestaurantDetails,
+  getMenuItemsFromCategory,
 } from '../fetches'
 import { TiDelete } from 'react-icons/ti'
 import { useMutation } from 'react-query'
+import { Link } from 'react-router-dom'
 
 const Menu = () => {
   const navigate = useNavigate()
@@ -21,6 +22,7 @@ const Menu = () => {
 
   const [order, setOrder] = useState([])
   const [orderTotal, setOrderTotal] = useState(0)
+  const [Item, setCurrentItem] = useState([])
 
   const { data: fetchMenu, isLoading: fetchMenuLoading } = useQuery(
     ['menuItems', restaurant],
@@ -128,7 +130,7 @@ const Menu = () => {
 
       <Container className="d-flex flex-column justify-content-between mt-5">
         <div className="menuHeader justify-content-center w-100">
-          <div className="search-result-card mt-5 d-flex">
+          <div className="top-menu-banner mt-5 d-flex">
             <img
               src="https://picsum.photos/300/150"
               className="search-card-image"
@@ -155,39 +157,59 @@ const Menu = () => {
             <h1>Categories</h1>
             <ul>
               {!menuCategoriesLoading &&
-                menuCategories.map((category) => <li>{category}</li>)}
+                menuCategories.map((category) => (
+                  <a href="#Desserts">
+                    <li>{category}</li>
+                  </a>
+                ))}
             </ul>
           </div>
+
           <div className="d-flex flex-column align-items-center w-100">
-            {!fetchMenuLoading &&
-              fetchMenu.map((menuItem) => (
-                <div
-                  className="menu-item-card d-flex justify-content-center w-75"
-                  onClick={() => addItemToOrder(menuItem)}
-                >
-                  <div className="d-flex justify-content-between w-25 mt-3">
-                    <p>{menuItem.name}</p> <strong>{menuItem.price}</strong>
-                  </div>
-                </div>
-              ))}
+            {!menuCategoriesLoading &&
+              !fetchMenuLoading &&
+              menuCategories.map((CurrentCategory) => {
+                const itemsInCategory = fetchMenu.filter(
+                  (item) => item.category === CurrentCategory,
+                )
+                return (
+                  <>
+                    <h1 id={CurrentCategory}>{CurrentCategory}</h1>
+                    {itemsInCategory.map((item) => (
+                      <>
+                        <div
+                          className="menu-item-card d-flex justify-content-center w-75"
+                          onClick={() => addItemToOrder(item)}
+                        >
+                          <div className="d-flex justify-content-between w-25 mt-3">
+                            <p>{item.name}</p> <strong>{item.price}</strong>
+                          </div>
+                        </div>
+                      </>
+                    ))}
+                  </>
+                )
+              })}
           </div>
-          <div className="order-slip d-flex flex-column align-items-center w-25">
-            <h1>Your Order</h1>
-            <ul>
-              {order.map((item) => (
-                <>
-                  <li>
-                    {item.quantity} x {item.name}{' '}
-                    <TiDelete onClick={() => removeFromOrder(item)} />
-                  </li>
-                </>
-              ))}
-            </ul>
-            Order Total: £{round(orderTotal)}
-            <Button variant="danger mt-2" onClick={handleOrder}>
-              Place Order
-            </Button>
-          </div>
+          {order.length !== 0 && (
+            <div className="order-slip d-flex flex-column align-items-center w-50">
+              <h1>Your Order</h1>
+              <ul>
+                {order.map((item) => (
+                  <>
+                    <li>
+                      {item.quantity} x {item.name}{' '}
+                      <TiDelete onClick={() => removeFromOrder(item)} />
+                    </li>
+                  </>
+                ))}
+              </ul>
+              Order Total: £{round(orderTotal)}
+              <Button variant="danger mt-2 mb-3" onClick={handleOrder}>
+                Place Order
+              </Button>
+            </div>
+          )}
         </div>
       </Container>
     </>

@@ -61,7 +61,7 @@ const Navbar = () => {
 
       <div className="d-flex justify-content-between align-items-center nav-container">
         <div className="d-flex align-items-center left-nav d-none d-lg-block">
-          <CiBurger className="burger-icon" />
+          <img src="logo.png" width="100" className="mb-2" />
           <span>DIG IN</span>
         </div>
 
