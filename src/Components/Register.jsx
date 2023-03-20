@@ -31,7 +31,7 @@ const Register = () => {
     const newUser = await registerUser(firstName, lastName, email, password)
 
     if (newUser === 'success') {
-      navigate('/home')
+      navigate('/')
     }
   }
 

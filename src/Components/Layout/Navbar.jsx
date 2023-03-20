@@ -13,16 +13,20 @@ const Navbar = () => {
   const handleClose = () => setShow(false)
   const handleShow = () => setShow(true)
 
-  const { data: userData, isLoading: userDetailsLoaded } = useQuery(
-    ['userDetails'],
-    getUserDetails,
-  )
+  const {
+    data: userData,
+    isLoading: userDetailsLoaded,
+    refetch: fetchUserData,
+  } = useQuery(['userDetails'], getUserDetails, {
+    enabled: false,
+  })
 
   useEffect(() => {
     if (localStorage.getItem('accessToken')) {
       setLoggedIn(true)
+      fetchUserData()
     }
-  })
+  }, [])
 
   return (
     <>

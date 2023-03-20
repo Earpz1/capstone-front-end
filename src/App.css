@@ -291,3 +291,52 @@ a {
   max-height: 100px;
   margin-bottom: 15px;
 }
+
+.register-link {
+  font-size: 0.9rem;
+}
+
+.pending-orders {
+  width: 34%;
+  height: 100px;
+  background-color: #fcfcfc;
+  border: 1px solid black;
+  font-size: 2rem;
+}
+
+.pending-orders:hover {
+  cursor: pointer;
+  background-color: #e5e5e5;
+}
+
+.completed-orders {
+  width: 33%;
+  height: 100px;
+  background-color: #fcfcfc;
+  border: 1px solid black;
+  font-size: 2rem;
+}
+
+.completed-orders:hover {
+  cursor: pointer;
+  background-color: #e5e5e5;
+}
+
+.manage {
+  width: 33%;
+  height: 100px;
+  background-color: #fcfcfc;
+  border: 1px solid black;
+  font-size: 2rem;
+}
+
+.manage:hover {
+  cursor: pointer;
+  background-color: #e5e5e5;
+}
+
+.order-container {
+  width: 100%;
+  border: 1px solid red;
+  padding: 10px;
+}

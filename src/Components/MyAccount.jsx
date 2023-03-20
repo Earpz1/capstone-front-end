@@ -5,8 +5,10 @@ import { getUserDetails } from '../fetches'
 import { useState, useEffect } from 'react'
 import { Link } from 'react-router-dom'
 import AccountSidebar from './Layout/AccountSidebar'
+import GooglePlacesAutocomplete from 'react-google-places-autocomplete'
 
 const MyAccount = () => {
+  const apiKey = 'AIzaSyA4ItZzAACzaBIw0oRAc4qZ46LSA90-104'
   const queryClient = useQueryClient()
 
   const { data: userData, isLoading: userDetailsLoaded } = useQuery(
@@ -30,7 +32,7 @@ const MyAccount = () => {
     {
       onSuccess: async (data) => {
         const accessKey = await data.json()
-        console.log(accessKey.accessToken)
+
         localStorage.setItem('accessToken', accessKey.accessToken)
       },
     },
@@ -39,6 +41,8 @@ const MyAccount = () => {
   const [firstName, setfirstName] = useState('')
   const [lastName, setlastName] = useState('')
   const [email, setEmail] = useState('')
+  const [address, setAddress] = useState(null)
+  const [showAddressForm, setShowAddressForm] = useState(false)
 
   useEffect(() => {
     if (!userDetailsLoaded) {
@@ -61,6 +65,10 @@ const MyAccount = () => {
   const handleEmail = (event) => {
     setEmail(event.target.value)
   }
+
+  const showAddAddress = () => {
+    setShowAddressForm(true)
+  }
   const handleSubmit = (event) => {
     event.preventDefault()
 
@@ -68,6 +76,7 @@ const MyAccount = () => {
       firstName: firstName,
       lastName: lastName,
       email: email,
+      address: address.label,
     })
   }
 
@@ -102,13 +111,12 @@ const MyAccount = () => {
               onChange={(event) => handleEmail(event)}
             />
             <strong>Delivery Address</strong>
-            {!userDetailsLoaded && userData.address ? (
-              <>
-                <Form.Control type="address" className="w-50 mb-4" />
-              </>
-            ) : (
-              <a href="#">Add Delivery Address</a>
-            )}
+            <div className="w-50">
+              <GooglePlacesAutocomplete
+                apiKey={apiKey}
+                selectProps={{ address, onChange: setAddress }}
+              />
+            </div>
           </Form>
           <Button
             variant="danger"

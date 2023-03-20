@@ -4,12 +4,22 @@ import { useMutation, useQuery } from 'react-query'
 import { useLocation, useNavigate } from 'react-router-dom'
 import { getOrder } from '../fetches/index.js'
 import { useEffect, useState } from 'react'
+import { Elements } from '@stripe/react-stripe-js'
+import { loadStripe } from '@stripe/stripe-js'
+import CheckoutForm from './CheckoutForm'
+import { clientKey } from '../fetches/index.js'
+import axios from 'axios'
 
 const Checkout = () => {
+  const stripePromise = loadStripe(
+    'pk_test_51Mnjs0FvNVztANBA5pqqeENUQrSoZEfYpjCleha6u3ySMIMTkP7QIsSKtjYhZm1vyN2qo8jYDvhOI0O02OZ2GqFx00o3cooN26',
+  )
+
   const navigate = useNavigate()
   const params = useLocation()
   const searchParams = new URLSearchParams(params.search)
   const orderID = searchParams.get('orderID')
+  const [key, setKey] = useState('')
 
   const [paymentProcessing, setPaymentProcessing] = useState(false)
 
@@ -38,18 +48,29 @@ const Checkout = () => {
   const completePayment = () => {
     setPaymentProcessing(true)
     processPayment({
-      orderStatus: 'Paid',
+      orderStatus: 'pending',
     })
     setTimeout(() => {
       navigate('/myDetails')
     }, 4000)
   }
 
-  useEffect(() => {
-    setTimeout(() => {
-      console.log(orderData)
-    }, 500)
-  })
+  const { data: getKey, isLoading: getKeyLoading } = useQuery(
+    ['secretKey'],
+    clientKey,
+    {
+      onSuccess: (getKey) => {
+        setKey(getKey)
+      },
+    },
+  )
+
+  const options = {
+    clientSecret: key,
+    appearance: {
+      theme: 'night',
+    },
+  }
 
   return (
     <>
@@ -60,55 +81,27 @@ const Checkout = () => {
             <h1>Your Order</h1>
             <ul>
               {!getOrderLoading &&
-                orderData.orderedItems.map((item) => (
-                  <>
-                    <li>
-                      {item.name} - {item.price} each{' '}
-                    </li>
-                  </>
-                ))}
+                orderData.orderedItems.map((item) => {
+                  const itemPrice = item.quantity * item.price
+                  return (
+                    <>
+                      <li>
+                        {item.quantity} x {item.name} - £{itemPrice}{' '}
+                      </li>
+                    </>
+                  )
+                })}
             </ul>
             Order Total: £{!getOrderLoading && orderData.totalPrice}
           </div>
 
           <div className="d-flex flex-column align-items-center w-50">
-            {!paymentProcessing ? (
-              <>
-                <Form.Control
-                  type="text"
-                  placeholder="Name on Card"
-                  className="w-50 mt-3 ml-5"
-                />
-                <Form.Control
-                  type="text"
-                  placeholder="Card Number"
-                  className="w-50 mt-3 ml-5"
-                />
-
-                <Form.Control
-                  type="text"
-                  placeholder="Expiry Date"
-                  className="w-50 mt-3 "
-                />
-                <Form.Control
-                  type="text"
-                  placeholder="Security Code"
-                  className="w-50 mt-3 "
-                />
-
-                <Button
-                  variant="success"
-                  className="mt-2 w-50"
-                  onClick={completePayment}
-                >
-                  Pay £{!getOrderLoading && orderData.totalPrice}
-                </Button>
-              </>
-            ) : (
-              <>
-                <Spinner animation="border" role="status"></Spinner>
-                <span>Payment Processing</span>
-              </>
+            {!getKeyLoading && (
+              <div className="w-75">
+                <Elements stripe={stripePromise} options={options}>
+                  <CheckoutForm />
+                </Elements>
+              </div>
             )}
           </div>
         </div>

@@ -3,6 +3,7 @@ import { Form, Button } from 'react-bootstrap'
 import { useState } from 'react'
 import { userLogin } from '../fetches'
 import { useNavigate } from 'react-router-dom'
+import { Link } from 'react-router-dom'
 
 const Login = () => {
   const navigate = useNavigate()
@@ -61,6 +62,9 @@ const Login = () => {
               Login
             </Button>
           </Form>
+          <small className="mt-3 register-link">
+            Don't have an account? <Link to="/register">Register here</Link>
+          </small>
         </div>
       </div>
     </>

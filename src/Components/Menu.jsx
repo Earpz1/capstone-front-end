@@ -51,14 +51,6 @@ const Menu = () => {
     },
   )
 
-  const { data: menuCategories, isLoading: menuCategoriesLoading } = useQuery(
-    ['menuCategories'],
-    getFoodCategories,
-    {
-      refetchOnWindowFocus: false,
-    },
-  )
-
   const adjustOrderTotal = (price) => {
     setOrderTotal(orderTotal + price)
   }
@@ -78,6 +70,7 @@ const Menu = () => {
       setOrder([...order, item])
       adjustOrderTotal(item.price)
     }
+    console.log(order)
   }
 
   const removeFromOrder = (menuItem) => {
@@ -120,6 +113,7 @@ const Menu = () => {
 
   const handleOrder = () => {
     placeOrder({
+      restaurantID: restaurant,
       orderedItems: order,
       orderStatus: 'Awaiting Payment',
     })
@@ -156,8 +150,8 @@ const Menu = () => {
           <div className="category-container w-25">
             <h1>Categories</h1>
             <ul>
-              {!menuCategoriesLoading &&
-                menuCategories.map((category) => (
+              {!RestaurantDetailsLoading &&
+                RestaurantDetails.foodCategories.map((category) => (
                   <a href="#Desserts">
                     <li>{category}</li>
                   </a>
@@ -166,9 +160,9 @@ const Menu = () => {
           </div>
 
           <div className="d-flex flex-column align-items-center w-100">
-            {!menuCategoriesLoading &&
+            {!RestaurantDetailsLoading &&
               !fetchMenuLoading &&
-              menuCategories.map((CurrentCategory) => {
+              RestaurantDetails.foodCategories.map((CurrentCategory) => {
                 const itemsInCategory = fetchMenu.filter(
                   (item) => item.category === CurrentCategory,
                 )

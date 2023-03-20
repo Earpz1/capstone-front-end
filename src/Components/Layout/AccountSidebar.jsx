@@ -37,11 +37,14 @@ const AccountSidebar = () => {
       {loggedIn && !userDetailsLoaded && userData.role === 'owner' && (
         <>
           <ul className="account-sidebar-nav">
-            <h5>Restaurant Dashboard</h5>
+            <h5>Restaurant Admin</h5>
+            <Link to={`/dashboard?restaurantID=${userData.restaurantID}`}>
+              <li>Restaurant Dashboard</li>
+            </Link>
             <Link to="/restaurantDetails">
               <li>Restaurant Details</li>
             </Link>
-            <li>Orders</li>
+            <li>History</li>
             <Link to="/manageMenu">
               <li>Menu</li>
             </Link>
