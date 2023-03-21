@@ -56,8 +56,8 @@ const Checkout = () => {
   }
 
   const { data: getKey, isLoading: getKeyLoading } = useQuery(
-    ['secretKey'],
-    clientKey,
+    ['secretKey', orderID],
+    ({ queryKey }) => clientKey(queryKey[1]),
     {
       onSuccess: (getKey) => {
         setKey(getKey)

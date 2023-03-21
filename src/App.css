@@ -297,29 +297,34 @@ a {
 }
 
 .pending-orders {
-  width: 34%;
-  height: 100px;
+  width: auto;
+  height: 50px;
   background-color: #fcfcfc;
   border: 1px solid black;
-  font-size: 2rem;
+  margin-right: 20px;
+  margin-left: 20px;
+  border-radius: 10px;
 }
 
 .pending-orders:hover {
   cursor: pointer;
-  background-color: #e5e5e5;
+  background-color: #c8be33;
+  transform: scale(1.05);
 }
 
 .completed-orders {
-  width: 33%;
-  height: 100px;
+  width: 300px;
+  height: 50px;
   background-color: #fcfcfc;
   border: 1px solid black;
-  font-size: 2rem;
+  margin-right: 20px;
+  border-radius: 10px;
 }
 
 .completed-orders:hover {
   cursor: pointer;
-  background-color: #e5e5e5;
+  background-color: #07f107;
+  transform: scale(1.05);
 }
 
 .manage {
@@ -337,6 +342,42 @@ a {
 
 .order-container {
   width: 100%;
-  border: 1px solid red;
+  border: 1px solid rgb(209, 206, 206);
   padding: 10px;
+  border-radius: 10px;
+}
+
+.order-container:hover {
+  background-color: rgba(170, 167, 167, 0.486);
+}
+
+.order-sidebar {
+  border-right: 3px solid red;
+  min-height: 90vh;
+  overflow-y: none;
+}
+
+.name {
+  margin-bottom: 0;
+}
+
+.no-link {
+  text-decoration: none;
+  color: black;
+}
+
+.no-link:hover {
+  text-decoration: none;
+  color: black;
+}
+
+.order-main-container {
+  border: 1px solid rgb(209, 206, 206);
+  padding: 10px;
+  border-radius: 10px;
+}
+
+.orderedItem {
+  border: 1px solid rgb(209, 206, 206);
+  border-radius: 10px;
 }

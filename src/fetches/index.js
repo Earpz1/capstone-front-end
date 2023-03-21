@@ -285,14 +285,13 @@ export const getPendingOrders = async (restaurantID) => {
     let response = await fetch(fetchURL, options)
     if (response.ok) {
       let data = await response.json()
-      console.log(data)
       return data
     }
   } catch (error) {}
 }
 
-//Get the clientKey
-export const clientKey = async () => {
+//Get orders that have been completed
+export const getCompletedOrders = async (restaurantID) => {
   const options = {
     method: 'GET',
     headers: {
@@ -300,7 +299,27 @@ export const clientKey = async () => {
     },
   }
 
-  const fetchURL = `http://localhost:3001/orders/secret`
+  const fetchURL = `http://localhost:3001/orders/${restaurantID}/delivered`
+
+  try {
+    let response = await fetch(fetchURL, options)
+    if (response.ok) {
+      let data = await response.json()
+      return data
+    }
+  } catch (error) {}
+}
+
+//Get the clientKey
+export const clientKey = async (orderID) => {
+  const options = {
+    method: 'GET',
+    headers: {
+      Authorization: 'Bearer ' + localStorage.getItem('accessToken'),
+    },
+  }
+
+  const fetchURL = `http://localhost:3001/orders/${orderID}/secret`
 
   try {
     let response = await fetch(fetchURL, options)

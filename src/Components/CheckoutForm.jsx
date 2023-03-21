@@ -1,9 +1,14 @@
 import React from 'react'
 import { useStripe, useElements, PaymentElement } from '@stripe/react-stripe-js'
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import { Button } from 'react-bootstrap'
+import { useNavigate, useLocation } from 'react-router-dom'
 
 const CheckoutForm = () => {
+  const navigate = useNavigate()
+  const params = useLocation()
+  const searchParams = new URLSearchParams(params.search)
+  const orderID = searchParams.get('orderID')
   const stripe = useStripe()
   const elements = useElements()
 
@@ -24,7 +29,7 @@ const CheckoutForm = () => {
       //`Elements` instance that was used to create the Payment Element
       elements,
       confirmParams: {
-        return_url: 'https://localhost:3001/success',
+        return_url: `http://localhost:3000/orderConfirmed?orderID=${orderID}`,
       },
     })
 
@@ -43,7 +48,7 @@ const CheckoutForm = () => {
   return (
     <form onSubmit={handleSubmit}>
       <PaymentElement />
-      <Button variant="danger" className="mt-2">
+      <Button type="submit" variant="danger">
         Process Payment
       </Button>
     </form>
