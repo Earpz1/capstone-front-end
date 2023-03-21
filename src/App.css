@@ -353,8 +353,9 @@ a {
 
 .order-sidebar {
   border-right: 3px solid red;
-  min-height: 90vh;
-  overflow-y: none;
+  min-height: 88vh;
+  max-height: 88vh;
+  overflow-y: auto;
 }
 
 .name {

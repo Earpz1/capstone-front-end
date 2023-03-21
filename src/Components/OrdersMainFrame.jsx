@@ -50,7 +50,7 @@ const OrdersMainFrame = (props) => {
 
   return (
     <>
-      {!getCurrentOrder && currentOrder.length > 0 ? (
+      {!getCurrentOrder ? (
         <div className="order-main-container w-75">
           <div className="d-flex justify-content-evenly align-items-center">
             <b>Order: {currentOrder._id}</b>
@@ -126,7 +126,7 @@ const OrdersMainFrame = (props) => {
           </div>
         </div>
       ) : (
-        <h1>No orders to show</h1>
+        ''
       )}
     </>
   )
