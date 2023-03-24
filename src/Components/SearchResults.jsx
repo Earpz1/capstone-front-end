@@ -7,6 +7,7 @@ import { useQuery } from 'react-query'
 import { useState } from 'react'
 import { useLocation, Link } from 'react-router-dom'
 import { Container, Row } from 'react-bootstrap'
+import Footer from './Layout/Footer'
 
 const SearchResults = () => {
   const params = useLocation()
@@ -90,8 +91,8 @@ const SearchResults = () => {
                       </div>
                     </div>
                     <div className="d-flex justify-content-between w-50">
-                      <p>Minimum Order: £15</p>
-                      <p>Delivery: 50-60 Mins</p>
+                      <p>Minimum Order: £{result.minimumOrder}</p>
+                      <p>£{result.deliveryFee} delivery fee</p>
                     </div>
                   </div>
                 </div>
@@ -99,6 +100,7 @@ const SearchResults = () => {
             </>
           ))}
       </Container>
+      <Footer />
     </>
   )
 }

@@ -6,7 +6,7 @@ import { useNavigate, useLocation } from 'react-router-dom'
 import { getOrder } from '../fetches'
 import { useQuery } from 'react-query'
 
-const CheckoutForm = () => {
+const CheckoutForm = (props) => {
   const navigate = useNavigate()
   const params = useLocation()
   const searchParams = new URLSearchParams(params.search)
@@ -62,7 +62,7 @@ const CheckoutForm = () => {
       <PaymentElement />
       {!getCurrentOrder && !paymentLoading && (
         <Button type="submit" variant="danger" className="mt-5 w-100">
-          Pay £{currentOrder.totalPrice}
+          Pay £{props.totalCost}
         </Button>
       )}
       {paymentLoading && (

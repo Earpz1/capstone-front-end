@@ -3,21 +3,29 @@ import { Container } from 'react-bootstrap'
 import { Link, useLocation } from 'react-router-dom'
 import { useMutation } from 'react-query'
 import { useEffect } from 'react'
+import { useQueryClient } from 'react-query'
 
 const ConfirmOrder = () => {
+  const queryClient = useQueryClient()
   const params = useLocation()
   const searchParams = new URLSearchParams(params.search)
   const orderID = searchParams.get('orderID')
 
-  const { mutate: submitOrder } = useMutation((postData) =>
-    fetch(`http://localhost:3001/orders/updateOrder/${orderID}`, {
-      method: 'PUT',
-      headers: {
-        'Content-Type': 'application/json',
-        Authorization: 'Bearer ' + localStorage.getItem('accessToken'),
+  const { mutate: submitOrder } = useMutation(
+    (postData) =>
+      fetch(`http://localhost:3001/orders/updateOrder/${orderID}`, {
+        method: 'PUT',
+        headers: {
+          'Content-Type': 'application/json',
+          Authorization: 'Bearer ' + localStorage.getItem('accessToken'),
+        },
+        body: JSON.stringify(postData),
+      }),
+    {
+      onSuccess: () => {
+        queryClient.invalidateQueries('getPendingOrders')
       },
-      body: JSON.stringify(postData),
-    }),
+    },
   )
 
   useEffect(() => {

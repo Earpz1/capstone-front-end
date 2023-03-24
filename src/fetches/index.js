@@ -330,3 +330,24 @@ export const clientKey = async (orderID) => {
     }
   } catch (error) {}
 }
+
+//Get all orders from a customer
+export const getMyOrders = async (limit) => {
+  const options = {
+    method: 'GET',
+    headers: {
+      Authorization: 'Bearer ' + localStorage.getItem('accessToken'),
+    },
+  }
+
+  const fetchURL = `http://localhost:3001/orders/myOrders?limit=${limit}`
+
+  try {
+    let response = await fetch(fetchURL, options)
+    if (response.ok) {
+      let data = await response.json()
+
+      return data
+    }
+  } catch (error) {}
+}

@@ -9,6 +9,7 @@ import { loadStripe } from '@stripe/stripe-js'
 import CheckoutForm from './CheckoutForm'
 import { clientKey } from '../fetches/index.js'
 import axios from 'axios'
+import Footer from './Layout/Footer'
 
 const Checkout = () => {
   const stripePromise = loadStripe(
@@ -72,6 +73,11 @@ const Checkout = () => {
     },
   }
 
+  function round(num) {
+    var m = Number((Math.abs(num) * 100).toPrecision(15))
+    return (Math.round(m) / 100) * Math.sign(num)
+  }
+
   return (
     <>
       <Navbar />
@@ -92,20 +98,56 @@ const Checkout = () => {
                   )
                 })}
             </ul>
-            Order Total: £{!getOrderLoading && orderData.totalPrice}
+            <div className="d-flex flex-column">
+              <span>
+                <small>
+                  Items: {!getOrderLoading && '£' + orderData.totalPrice}
+                </small>
+              </span>
+              <span>
+                <small>
+                  Delivery Fee:{' '}
+                  {!getOrderLoading && '£' + orderData.deliveryFee}
+                </small>
+              </span>
+              <span>
+                <small>
+                  Service Charge:{' '}
+                  {!getOrderLoading && '£' + round(orderData.totalPrice * 0.05)}
+                </small>
+              </span>
+
+              <p></p>
+              <p>
+                Order Total: £
+                {!getOrderLoading &&
+                  round(
+                    orderData.totalPrice +
+                      orderData.totalPrice * 0.05 +
+                      orderData.deliveryFee,
+                  )}
+              </p>
+            </div>
           </div>
 
           <div className="d-flex flex-column align-items-center w-50">
             {!getKeyLoading && (
               <div className="w-75">
                 <Elements stripe={stripePromise} options={options}>
-                  <CheckoutForm />
+                  <CheckoutForm
+                    totalCost={round(
+                      orderData.totalPrice +
+                        orderData.totalPrice * 0.05 +
+                        orderData.deliveryFee,
+                    )}
+                  />
                 </Elements>
               </div>
             )}
           </div>
         </div>
       </Container>
+      <Footer />
     </>
   )
 }

@@ -12,7 +12,7 @@ const PendingSidebarOrder = () => {
   const restaurant = searchParams.get('restaurantID')
 
   const { data: pendingOrders, isLoading: pendingOrdersLoaded } = useQuery(
-    ['currentOrder', restaurant],
+    ['getPendingOrders', restaurant],
     ({ queryKey }) => getPendingOrders(queryKey[1]),
   )
 
@@ -32,6 +32,14 @@ const PendingSidebarOrder = () => {
       },
     },
   )
+
+  //Function to convert a date object to just time in HH:MM format
+  const convertTime = (date) => {
+    const time = new Date(date)
+    const hours = time.getHours()
+    const minutes = time.getMinutes()
+    return `${hours}:${minutes}`
+  }
 
   return (
     <>
@@ -63,7 +71,7 @@ const PendingSidebarOrder = () => {
                         <b>Order total:</b> £{order.totalPrice}
                       </li>
                       <li>
-                        <b>Order time: </b> 19:34pm
+                        <b>Order time: </b> {convertTime(order.createdAt)}
                       </li>
                     </ul>
                   </div>

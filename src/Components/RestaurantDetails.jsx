@@ -34,6 +34,8 @@ const RestaurantDetails = () => {
   const [restaurantName, setRestaurantName] = useState('')
   const [restaurantAddress, setrestaurantAddress] = useState('')
   const [cuisine, setCuisine] = useState('')
+  const [minimumOrder, setMinimumOrder] = useState('')
+  const [deliveryFee, setDeliveryFee] = useState('')
 
   useEffect(() => {
     if (!OwnerRestaurantLoading) {
@@ -41,6 +43,8 @@ const RestaurantDetails = () => {
         setRestaurantName(OwnerRestaurant.name)
         setrestaurantAddress(OwnerRestaurant.address)
         setCuisine(OwnerRestaurant.cuisine)
+        setMinimumOrder(OwnerRestaurant.minimumOrder)
+        setDeliveryFee(OwnerRestaurant.deliveryFee)
       }, 300)
     }
   }, [OwnerRestaurant])
@@ -57,6 +61,14 @@ const RestaurantDetails = () => {
     setCuisine(event.target.value)
   }
 
+  const handleMinimumOrder = (event) => {
+    setMinimumOrder(event.target.value)
+  }
+
+  const handleDeliveryFee = (event) => {
+    setDeliveryFee(event.target.value)
+  }
+
   const handleSubmit = (event) => {
     event.preventDefault()
 
@@ -64,6 +76,8 @@ const RestaurantDetails = () => {
       name: restaurantName,
       address: restaurantAddress,
       cuisine: cuisine,
+      deliveryFee: deliveryFee,
+      minimumOrder: minimumOrder,
     })
   }
 
@@ -96,6 +110,20 @@ const RestaurantDetails = () => {
               className="w-50 mb-4"
               onChange={(event) => handleCuisine(event)}
               value={cuisine}
+            />
+            <strong>Delivery Fee</strong>
+            <Form.Control
+              type="fee"
+              className="w-50 mb-4"
+              onChange={(event) => handleDeliveryFee(event)}
+              value={deliveryFee}
+            />
+            <strong>Minimum Order</strong>
+            <Form.Control
+              type="fee"
+              className="w-50 mb-4"
+              onChange={(event) => handleMinimumOrder(event)}
+              value={minimumOrder}
             />
           </Form>
           <Button

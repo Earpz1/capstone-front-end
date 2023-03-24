@@ -1,7 +1,7 @@
 import { Rating } from 'react-simple-star-rating'
 import Navbar from './Layout/Navbar'
 import { useQuery } from 'react-query'
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import { useLocation, useNavigate } from 'react-router-dom'
 import { Container, Button } from 'react-bootstrap'
 import {
@@ -13,6 +13,7 @@ import {
 import { TiDelete } from 'react-icons/ti'
 import { useMutation } from 'react-query'
 import { Link } from 'react-router-dom'
+import Footer from './Layout/Footer'
 
 const Menu = () => {
   const navigate = useNavigate()
@@ -70,7 +71,6 @@ const Menu = () => {
       setOrder([...order, item])
       adjustOrderTotal(item.price)
     }
-    console.log(order)
   }
 
   const removeFromOrder = (menuItem) => {
@@ -88,8 +88,10 @@ const Menu = () => {
   }
 
   function round(num) {
-    var m = Number((Math.abs(num) * 100).toPrecision(15))
-    return (Math.round(m) / 100) * Math.sign(num)
+    if (!RestaurantDetailsLoading) {
+      var m = Number((Math.abs(num) * 100).toPrecision(15))
+      return (Math.round(m) / 100) * Math.sign(num)
+    }
   }
 
   const { mutate: placeOrder } = useMutation(
@@ -116,8 +118,10 @@ const Menu = () => {
       restaurantID: restaurant,
       orderedItems: order,
       orderStatus: 'Awaiting Payment',
+      deliveryFee: RestaurantDetails.deliveryFee,
     })
   }
+
   return (
     <>
       <Navbar />
@@ -152,7 +156,7 @@ const Menu = () => {
             <ul>
               {!RestaurantDetailsLoading &&
                 RestaurantDetails.foodCategories.map((category) => (
-                  <a href="#Desserts">
+                  <a href={'#' + category}>
                     <li>{category}</li>
                   </a>
                 ))}
@@ -175,7 +179,7 @@ const Menu = () => {
                           className="menu-item-card d-flex justify-content-center w-75"
                           onClick={() => addItemToOrder(item)}
                         >
-                          <div className="d-flex justify-content-between w-25 mt-3">
+                          <div className="d-flex justify-content-between w-75 mt-3">
                             <p>{item.name}</p> <strong>{item.price}</strong>
                           </div>
                         </div>
@@ -198,14 +202,45 @@ const Menu = () => {
                   </>
                 ))}
               </ul>
-              Order Total: £{round(orderTotal)}
-              <Button variant="danger mt-2 mb-3" onClick={handleOrder}>
-                Place Order
-              </Button>
+              <div className="d-flex flex-column">
+                <p>
+                  Delivery Fee:{' '}
+                  {!RestaurantDetailsLoading &&
+                    '£' + RestaurantDetails.deliveryFee}
+                </p>
+                <p>
+                  Order Total: £
+                  {round(orderTotal + RestaurantDetails.deliveryFee)}{' '}
+                </p>
+              </div>
+              {!RestaurantDetailsLoading &&
+                localStorage.getItem('accessToken') &&
+                orderTotal > RestaurantDetails.minimumOrder && (
+                  <Button variant="danger mt-2 mb-3" onClick={handleOrder}>
+                    Place Order
+                  </Button>
+                )}
+              {!RestaurantDetailsLoading &&
+                localStorage.getItem('accessToken') &&
+                orderTotal < RestaurantDetails.minimumOrder && (
+                  <Button variant="danger mt-2 mb-3" onClick={handleOrder}>
+                    £{round(RestaurantDetails.minimumOrder - orderTotal)} for
+                    Delivery
+                  </Button>
+                )}
+              {!localStorage.getItem('accessToken') && (
+                <Button
+                  variant="danger mt-2 mb-3"
+                  onClick={() => navigate('/login')}
+                >
+                  Login to place order
+                </Button>
+              )}
             </div>
           )}
         </div>
       </Container>
+      <Footer />
     </>
   )
 }

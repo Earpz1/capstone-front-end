@@ -3,8 +3,11 @@ import { Form, Button, InputGroup } from 'react-bootstrap'
 import { BiCurrentLocation } from 'react-icons/bi'
 import { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
+import Footer from './Footer'
 
 const Home = () => {
+  const apiKey = 'AIzaSyA4ItZzAACzaBIw0oRAc4qZ46LSA90-104'
+
   const navigate = useNavigate()
 
   const [searchTerm, setSearchTerm] = useState('')
@@ -15,6 +18,26 @@ const Home = () => {
 
   const handleSearch = () => {
     navigate(`/search?city=${searchTerm}`)
+  }
+
+  //Write a function that console logs my longitude and latitude
+  const showPosition = () => {
+    if (navigator.geolocation) {
+      navigator.geolocation.getCurrentPosition((position) => {
+        const { latitude, longitude } = position.coords
+        getCityName(latitude, longitude)
+      })
+    }
+  }
+
+  //Given latitude and longitude, return the postal town
+  const getCityName = async (latitude, longitude) => {
+    const response = await fetch(
+      `https://maps.googleapis.com/maps/api/geocode/json?latlng=${latitude},${longitude}&key=${apiKey}&type=locality`,
+    )
+    const data = await response.json()
+    console.log(data)
+    setSearchTerm(data.results[0].address_components[2].long_name)
   }
 
   return (
@@ -32,7 +55,7 @@ const Home = () => {
               value={searchTerm}
             />
             <InputGroup.Text id="search-location">
-              <BiCurrentLocation />
+              <BiCurrentLocation onClick={showPosition} />
             </InputGroup.Text>
           </InputGroup>
           <Button
@@ -45,6 +68,7 @@ const Home = () => {
           </Button>
         </Form>
       </div>
+      <Footer />
     </>
   )
 }

@@ -43,7 +43,9 @@ const Navbar = () => {
                 <li className="nav-list-mobile">Home</li>
               </Link>
             </div>
-            <li className="nav-list-mobile">My Orders</li>
+            <Link to="/myOrders">
+              <li className="nav-list-mobile">My Orders</li>
+            </Link>
             <li className="nav-list-mobile">My Rewards</li>
             {loggedIn ? (
               <Link to="/myDetails">
@@ -65,7 +67,7 @@ const Navbar = () => {
 
       <div className="d-flex justify-content-between align-items-center nav-container">
         <div className="d-flex align-items-center left-nav d-none d-lg-block">
-          <img src="logo.png" width="100" className="mb-2" />
+          <img src="logo.png" width="60" className="mb-2" />
           <span>DIG IN</span>
         </div>
 
@@ -79,8 +81,12 @@ const Navbar = () => {
             <Link to="/">
               <li className="nav-list-desktop">Home</li>
             </Link>
-            <li className="nav-list-desktop">My Orders</li>
-            <li className="nav-list-desktop">My Rewards</li>
+            <Link to="/myOrders">
+              <li className="nav-list-desktop">My Orders</li>
+            </Link>
+            <Link to="/">
+              <li className="nav-list-desktop">My Rewards</li>
+            </Link>
             {loggedIn ? (
               <Link to="/myDetails">
                 <li className="nav-list-desktop">My Account</li>

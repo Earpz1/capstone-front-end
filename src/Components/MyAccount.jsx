@@ -6,6 +6,7 @@ import { useState, useEffect } from 'react'
 import { Link } from 'react-router-dom'
 import AccountSidebar from './Layout/AccountSidebar'
 import GooglePlacesAutocomplete from 'react-google-places-autocomplete'
+import Footer from './Layout/Footer'
 
 const MyAccount = () => {
   const apiKey = 'AIzaSyA4ItZzAACzaBIw0oRAc4qZ46LSA90-104'
@@ -127,6 +128,7 @@ const MyAccount = () => {
           </Button>
         </div>
       </Container>
+      <Footer />
     </>
   )
 }

@@ -15,6 +15,8 @@ import Menu from './Components/Menu'
 import Checkout from './Components/Checkout'
 import Dashboard from './Components/Dashboard'
 import ConfirmOrder from './Components/ConfirmOrder'
+import MyOrders from './Components/MyOrders'
+import Footer from './Components/Layout/Footer'
 
 function App() {
   const client = new QueryClient()
@@ -35,6 +37,7 @@ function App() {
           <Route path="/checkout" element={<Checkout />} />
           <Route path="/dashboard" element={<Dashboard />} />
           <Route path="/orderConfirmed" element={<ConfirmOrder />} />
+          <Route path="/myOrders" element={<MyOrders />} />
         </Routes>
       </Router>
     </QueryClientProvider>

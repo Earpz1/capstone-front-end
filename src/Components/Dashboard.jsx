@@ -11,7 +11,7 @@ const Dashboard = () => {
   const searchParams = new URLSearchParams(params.search)
   const orderID = searchParams.get('orderID')
 
-  const [sidebar, setSidebar] = useState('')
+  const [sidebar, setSidebar] = useState('pending')
 
   const handleSidebar = (change) => {
     setSidebar(change)
