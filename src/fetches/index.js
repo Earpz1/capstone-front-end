@@ -145,7 +145,7 @@ export const updateUserDetails = async (postData) => {
 
 //Get menu Items
 
-export const getMenuItems = async () => {
+export const getMenuItems = async (restaurantID) => {
   const options = {
     method: 'GET',
     headers: {
@@ -153,7 +153,7 @@ export const getMenuItems = async () => {
     },
   }
 
-  const fetchURL = 'http://localhost:3001/menuItem/getAllItems'
+  const fetchURL = `http://localhost:3001/menuItem/${restaurantID}`
 
   try {
     let response = await fetch(fetchURL, options)

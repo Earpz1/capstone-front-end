@@ -4,7 +4,7 @@ import { Container, Button, ListGroup, Form, Table } from 'react-bootstrap'
 import { getFoodCategories, getMenuItems } from '../fetches'
 import { useQuery, useMutation } from 'react-query'
 import { AiFillDelete, AiFillEdit } from 'react-icons/ai'
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import { useQueryClient } from 'react-query'
 import { getOwnersRestaurant } from '../fetches'
 
@@ -20,6 +20,20 @@ const ManageMenu = () => {
   const [showAddItem, setShowAddItem] = useState(false)
   const [showAddCategory, setShowAddCategory] = useState(false)
   const [itemID, setItemID] = useState('')
+  const [restaurantID, setRestaurantID] = useState('')
+  const [menuLoaded, setMenuLoaded] = useState(false)
+
+  const { data: OwnerRestaurant, isLoading: OwnerRestaurantLoading } = useQuery(
+    ['OwnerRestaurant'],
+    getOwnersRestaurant,
+    {
+      onSuccess: (OwnerRestaurant) => {
+        setRestaurantID(OwnerRestaurant._id)
+        console.log(OwnerRestaurant._id)
+      },
+      refetchOnWindowFocus: false,
+    },
+  )
 
   const { data: menuCategories, isLoading: menuCategoriesLoading } = useQuery(
     ['menuCategories'],
@@ -29,18 +43,15 @@ const ManageMenu = () => {
     },
   )
 
-  const { data: menuItems, isLoading: menuItemsLoading } = useQuery(
-    ['menuItems'],
-    getMenuItems,
+  const {
+    data: menuItems,
+    isLoading: menuItemsLoading,
+    refetch: refetchMenu,
+  } = useQuery(
+    ['menuItems', restaurantID],
+    ({ queryKey }) => getMenuItems(queryKey[1]),
     {
-      refetchOnWindowFocus: false,
-    },
-  )
-
-  const { data: OwnerRestaurant, isLoading: OwnerRestaurantLoading } = useQuery(
-    ['OwnerRestaurant'],
-    getOwnersRestaurant,
-    {
+      enabled: OwnerRestaurant && Object.keys(OwnerRestaurant).length > 0,
       refetchOnWindowFocus: false,
     },
   )
@@ -263,7 +274,7 @@ const ManageMenu = () => {
               </tr>
             </thead>
             <tbody>
-              {!menuItemsLoading &&
+              {menuLoaded &&
                 menuItems.map((menuItem) => (
                   <tr>
                     <td>{menuItem.name}</td>
