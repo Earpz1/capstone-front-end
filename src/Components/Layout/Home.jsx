@@ -74,7 +74,9 @@ const Home = () => {
       </div>
 
       <div className="d-flex flex-column align-items-center search-container-mobile d-block d-md-none">
-        <span className="search-title">DIG IN TO YOUR NEXT MEAL</span>
+        <span className="search-title d-flex text-nowrap">
+          DIG IN TO YOUR NEXT MEAL
+        </span>
         <Form className="w-75">
           <InputGroup className=" mb-3 mt-3">
             <Form.Control
