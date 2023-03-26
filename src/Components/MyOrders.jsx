@@ -49,7 +49,7 @@ const MyAccount = () => {
       <Navbar />
       <Container className="d-flex">
         <AccountSidebar />
-        <div className="account-content-container">
+        <div className="orders-content-container w-100">
           <h1>My Orders</h1>
 
           {!myOrdersLoaded &&
@@ -87,7 +87,6 @@ const MyAccount = () => {
           </Button>
         </div>
       </Container>
-      <Footer />
     </>
   )
 }

@@ -200,6 +200,15 @@ a {
   max-width: 1600px;
 }
 
+.orders-content-container {
+  margin-top: 50px;
+  border: 1px solid rgb(201, 199, 199);
+  border-radius: 10px;
+  padding-left: 15px;
+  padding-right: 15px;
+  width: 100%;
+}
+
 .account-sidebar-nav h5 {
   color: red;
   font-weight: 700;
