@@ -26,7 +26,6 @@ a {
 
 .left-nav {
   font-size: 3rem;
-  margin-left: 100px;
 }
 
 .left-nav span {
@@ -49,7 +48,6 @@ a {
 .nav-list a {
   text-decoration: none;
   color: black;
-  border-bottom: 3px solid rgb(232, 26, 26);
 }
 
 .nav-list a:hover {
@@ -60,8 +58,6 @@ a {
 .nav-list-desktop {
   cursor: pointer;
   margin-left: 40px;
-  padding-bottom: 14px;
-  padding-top: 37px;
   border-bottom: 3px solid rgb(255, 255, 255);
   text-decoration: none;
 }
@@ -74,7 +70,7 @@ a {
 }
 
 .nav-list li:hover {
-  border-bottom: 3px solid rgb(0, 0, 0);
+  border-bottom: 3px solid rgb(246, 3, 3);
 }
 
 .register-container {
@@ -108,6 +104,19 @@ a {
   top: 325px;
   left: 33%;
   width: 33%;
+  height: 200px;
+  background-color: rgb(255, 255, 255);
+  border: 1px solid black;
+  border-radius: 10px;
+  padding: 10px;
+  box-shadow: 5px 5px 5px #020202;
+}
+
+.search-container-mobile {
+  position: relative;
+  top: 25px;
+  left: 5%;
+  width: 90%;
   height: 200px;
   background-color: rgb(255, 255, 255);
   border: 1px solid black;

@@ -18,14 +18,17 @@ const PendingSidebarOrder = () => {
 
   const { mutate: submitOrder } = useMutation(
     (postData) =>
-      fetch(`http://localhost:3001/orders/updateOrder/${postData.id}`, {
-        method: 'PUT',
-        headers: {
-          'Content-Type': 'application/json',
-          Authorization: 'Bearer ' + localStorage.getItem('accessToken'),
+      fetch(
+        `${process.env.REACT_APP_BACKEND_URL}orders/updateOrder/${postData.id}`,
+        {
+          method: 'PUT',
+          headers: {
+            'Content-Type': 'application/json',
+            Authorization: 'Bearer ' + localStorage.getItem('accessToken'),
+          },
+          body: JSON.stringify(postData.data),
         },
-        body: JSON.stringify(postData.data),
-      }),
+      ),
     {
       onSuccess: () => {
         queryClient.invalidateQueries('getPendingOrders')

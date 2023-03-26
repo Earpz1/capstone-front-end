@@ -44,12 +44,12 @@ const Navbar = () => {
               </Link>
             </div>
             <Link to="/myOrders">
-              <li className="nav-list-mobile">My Orders</li>
+              <li className="nav-list-mobile">Orders</li>
             </Link>
-            <li className="nav-list-mobile">My Rewards</li>
+            <li className="nav-list-mobile">Rewards</li>
             {loggedIn ? (
               <Link to="/myDetails">
-                <li className="nav-list-mobile">My Account</li>
+                <li className="nav-list-mobile">Account</li>
               </Link>
             ) : (
               <Link to="/Login">
@@ -66,30 +66,29 @@ const Navbar = () => {
       </Offcanvas>
 
       <div className="d-flex justify-content-between align-items-center nav-container">
-        <div className="d-flex align-items-center left-nav d-none d-lg-block">
+        <div className="d-flex justify-content-between left-nav d-none d-lg-block w-100">
           <img src="logo.png" width="60" className="mb-2" />
           <span>DIG IN</span>
         </div>
 
-        <div className="d-flex align-items-center left-nav d-block d-lg-none">
-          <CiBurger className="burger-icon" />
+        <div className="d-flex justify-content-start left-nav d-block d-lg-none">
           <span>DIG IN</span>
         </div>
 
         <div className="align-items-center right-nav d-none d-lg-block">
-          <ul className="d-flex nav-list">
+          <ul className="d-flex nav-list justify-content-center">
             <Link to="/">
               <li className="nav-list-desktop">Home</li>
             </Link>
             <Link to="/myOrders">
-              <li className="nav-list-desktop">My Orders</li>
+              <li className="nav-list-desktop">Orders</li>
             </Link>
             <Link to="/">
-              <li className="nav-list-desktop">My Rewards</li>
+              <li className="nav-list-desktop">Rewards</li>
             </Link>
             {loggedIn ? (
               <Link to="/myDetails">
-                <li className="nav-list-desktop">My Account</li>
+                <li className="nav-list-desktop">Account</li>
               </Link>
             ) : (
               <Link to="/Login">

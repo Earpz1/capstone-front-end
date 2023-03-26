@@ -21,7 +21,7 @@ const RestaurantDetails = () => {
   )
 
   const { mutate: editRestaurant } = useMutation((postData) =>
-    fetch('http://localhost:3001/restaurant/editDetails', {
+    fetch(`${process.env.REACT_APP_BACKEND_URL}restaurant/editDetails`, {
       method: 'PUT',
       headers: {
         'Content-Type': 'application/json',

@@ -43,8 +43,37 @@ const Home = () => {
   return (
     <>
       <Navbar />
-      <img src="hero.jpeg" className="hero-image" />
-      <div className=" d-flex flex-column align-items-center search-container">
+
+      <img src="hero.jpeg" className="hero-image d-none d-md-block" />
+
+      <div className="d-flex flex-column align-items-center search-container d-none d-md-block">
+        <div className="d-flex flex-column align-items-center w-100">
+          <span className="search-title">DIG IN TO YOUR NEXT MEAL</span>
+          <Form className="w-75">
+            <InputGroup className=" mb-3 mt-3">
+              <Form.Control
+                placeholder="Enter your location"
+                aria-describedby="search-location"
+                onChange={(event) => handleSearchTerm(event)}
+                value={searchTerm}
+              />
+              <InputGroup.Text id="search-location">
+                <BiCurrentLocation onClick={showPosition} />
+              </InputGroup.Text>
+            </InputGroup>
+            <Button
+              type="submit"
+              className="w-100"
+              variant="danger"
+              onClick={handleSearch}
+            >
+              Search
+            </Button>
+          </Form>
+        </div>
+      </div>
+
+      <div className="d-flex flex-column align-items-center search-container-mobile d-block d-md-none">
         <span className="search-title">DIG IN TO YOUR NEXT MEAL</span>
         <Form className="w-75">
           <InputGroup className=" mb-3 mt-3">
@@ -68,6 +97,7 @@ const Home = () => {
           </Button>
         </Form>
       </div>
+
       <Footer />
     </>
   )

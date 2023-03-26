@@ -16,7 +16,7 @@ export const registerUser = async (firstName, lastName, email, password) => {
     },
   }
 
-  const fetchURL = 'http://localhost:3001/users/register'
+  const fetchURL = `${process.env.REACT_APP_BACKEND_URL}users/register`
 
   try {
     let response = await fetch(fetchURL, options)
@@ -47,7 +47,7 @@ export const userLogin = async (email, password) => {
     },
   }
 
-  const fetchURL = 'http://localhost:3001/users/login'
+  const fetchURL = `${process.env.REACT_APP_BACKEND_URL}users/login`
 
   try {
     let response = await fetch(fetchURL, options)
@@ -71,7 +71,7 @@ export const getUserDetails = async () => {
     },
   }
 
-  const fetchURL = 'http://localhost:3001/users/me'
+  const fetchURL = `${process.env.REACT_APP_BACKEND_URL}users/me`
 
   try {
     let response = await fetch(fetchURL, options)
@@ -90,7 +90,7 @@ export const getOwnersRestaurant = async () => {
     },
   }
 
-  const fetchURL = 'http://localhost:3001/restaurant/getRestaurant'
+  const fetchURL = `${process.env.REACT_APP_BACKEND_URL}restaurant/getRestaurant`
 
   try {
     let response = await fetch(fetchURL, options)
@@ -110,7 +110,7 @@ export const getFoodCategories = async () => {
     },
   }
 
-  const fetchURL = 'http://localhost:3001/restaurant/getMenuCategories'
+  const fetchURL = `${process.env.REACT_APP_BACKEND_URL}restaurant/getMenuCategories`
 
   try {
     let response = await fetch(fetchURL, options)
@@ -132,7 +132,7 @@ export const updateUserDetails = async (postData) => {
     body: JSON.stringify(postData),
   }
 
-  const fetchURL = 'http://localhost:3001/users/editDetails'
+  const fetchURL = `${process.env.REACT_APP_BACKEND_URL}users/editDetails`
 
   try {
     let response = await fetch(fetchURL, options)
@@ -153,7 +153,7 @@ export const getMenuItems = async (restaurantID) => {
     },
   }
 
-  const fetchURL = `http://localhost:3001/menuItem/${restaurantID}`
+  const fetchURL = `${process.env.REACT_APP_BACKEND_URL}menuItem/${restaurantID}`
 
   try {
     let response = await fetch(fetchURL, options)
@@ -174,7 +174,7 @@ export const SearchCity = async (city) => {
     },
   }
 
-  const fetchURL = `http://localhost:3001/restaurant/search/${city}`
+  const fetchURL = `${process.env.REACT_APP_BACKEND_URL}restaurant/search/${city}`
 
   try {
     let response = await fetch(fetchURL, options)
@@ -195,7 +195,7 @@ export const getMenuForRestaurant = async (restaurantID) => {
     },
   }
 
-  const fetchURL = `http://localhost:3001/menuItem/${restaurantID}`
+  const fetchURL = `${process.env.REACT_APP_BACKEND_URL}menuItem/${restaurantID}`
 
   try {
     let response = await fetch(fetchURL, options)
@@ -216,7 +216,7 @@ export const getMenuItemsFromCategory = async (restaurantID, category) => {
     },
   }
 
-  const fetchURL = `http://localhost:3001/menuItem/${restaurantID}/${category}`
+  const fetchURL = `${process.env.REACT_APP_BACKEND_URL}menuItem/${restaurantID}/${category}`
 
   try {
     let response = await fetch(fetchURL, options)
@@ -237,7 +237,7 @@ export const getRestaurantDetails = async (restaurantID) => {
     },
   }
 
-  const fetchURL = `http://localhost:3001/restaurant/${restaurantID}`
+  const fetchURL = `${process.env.REACT_APP_BACKEND_URL}restaurant/${restaurantID}`
 
   try {
     let response = await fetch(fetchURL, options)
@@ -258,7 +258,7 @@ export const getOrder = async (orderID) => {
     },
   }
 
-  const fetchURL = `http://localhost:3001/orders/${orderID}`
+  const fetchURL = `${process.env.REACT_APP_BACKEND_URL}orders/${orderID}`
 
   try {
     let response = await fetch(fetchURL, options)
@@ -279,7 +279,7 @@ export const getPendingOrders = async (restaurantID) => {
     },
   }
 
-  const fetchURL = `http://localhost:3001/orders/${restaurantID}/pending`
+  const fetchURL = `${process.env.REACT_APP_BACKEND_URL}orders/${restaurantID}/pending`
 
   try {
     let response = await fetch(fetchURL, options)
@@ -299,7 +299,7 @@ export const getCompletedOrders = async (restaurantID) => {
     },
   }
 
-  const fetchURL = `http://localhost:3001/orders/${restaurantID}/delivered`
+  const fetchURL = `${process.env.REACT_APP_BACKEND_URL}orders/${restaurantID}/delivered`
 
   try {
     let response = await fetch(fetchURL, options)
@@ -319,7 +319,7 @@ export const clientKey = async (orderID) => {
     },
   }
 
-  const fetchURL = `http://localhost:3001/orders/${orderID}/secret`
+  const fetchURL = `${process.env.REACT_APP_BACKEND_URL}orders/${orderID}/secret`
 
   try {
     let response = await fetch(fetchURL, options)
@@ -340,7 +340,7 @@ export const getMyOrders = async (limit) => {
     },
   }
 
-  const fetchURL = `http://localhost:3001/orders/myOrders?limit=${limit}`
+  const fetchURL = `${process.env.REACT_APP_BACKEND_URL}orders/myOrders?limit=${limit}`
 
   try {
     let response = await fetch(fetchURL, options)

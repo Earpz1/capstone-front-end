@@ -13,14 +13,17 @@ const ConfirmOrder = () => {
 
   const { mutate: submitOrder } = useMutation(
     (postData) =>
-      fetch(`http://localhost:3001/orders/updateOrder/${orderID}`, {
-        method: 'PUT',
-        headers: {
-          'Content-Type': 'application/json',
-          Authorization: 'Bearer ' + localStorage.getItem('accessToken'),
+      fetch(
+        `${process.env.REACT_APP_BACKEND_URL}orders/updateOrder/${orderID}`,
+        {
+          method: 'PUT',
+          headers: {
+            'Content-Type': 'application/json',
+            Authorization: 'Bearer ' + localStorage.getItem('accessToken'),
+          },
+          body: JSON.stringify(postData),
         },
-        body: JSON.stringify(postData),
-      }),
+      ),
     {
       onSuccess: () => {
         queryClient.invalidateQueries('getPendingOrders')
