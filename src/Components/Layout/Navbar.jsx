@@ -10,11 +10,14 @@ const Navbar = () => {
   const [loggedIn, setLoggedIn] = useState(false)
   const [show, setShow] = useState(false)
   const [showAccountLinks, setShowAccountLinks] = useState(false)
+  const [showRestaurantLinks, setShowRestaurantLinks] = useState(false)
 
   const handleClose = () => setShow(false)
   const handleShow = () => setShow(true)
 
   const handleShowAccountLinks = () => setShowAccountLinks(!showAccountLinks)
+  const handleShowRestaurantLinks = () =>
+    setShowRestaurantLinks(!showRestaurantLinks)
 
   const {
     data: userData,
@@ -70,6 +73,32 @@ const Navbar = () => {
                         </Link>
                       )}
                   </ul>
+                )}
+                {loggedIn && !userDetailsLoaded && userData.role === 'owner' && (
+                  <>
+                    <li
+                      className="nav-list mt-4"
+                      onClick={handleShowRestaurantLinks}
+                    >
+                      Restaurant Admin {showRestaurantLinks ? '-' : '+'}
+                    </li>
+                    {showRestaurantLinks && (
+                      <ul className="account-sub-menu">
+                        <Link
+                          to={`/dashboard?restaurantID=${userData.restaurantID}`}
+                        >
+                          <li>Restaurant Dashboard</li>
+                        </Link>
+                        <Link to="/restaurantDetails">
+                          <li>Restaurant Details</li>
+                        </Link>
+                        <Link to="/manageMenu">
+                          <li>Menu</li>
+                        </Link>
+                        <li>Reviews</li>
+                      </ul>
+                    )}
+                  </>
                 )}
               </>
             ) : (

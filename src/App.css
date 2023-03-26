@@ -191,12 +191,13 @@ a {
 }
 
 .account-content-container {
-  margin-top: 100px;
-  width: 80%;
+  margin-top: 50px;
   border: 1px solid rgb(201, 199, 199);
   border-radius: 10px;
   padding-left: 15px;
   padding-right: 15px;
+  min-width: auto;
+  max-width: 1600px;
 }
 
 .account-sidebar-nav h5 {

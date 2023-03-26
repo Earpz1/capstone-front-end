@@ -93,35 +93,35 @@ const RestaurantDetails = () => {
             <strong>Restaurant Name</strong>
             <Form.Control
               type="firstName"
-              className="w-50 mb-4"
+              className="w-100 mb-4"
               onChange={(event) => handleRestaurantName(event)}
               value={!OwnerRestaurantLoading && restaurantName}
             />
             <strong>Address</strong>
             <Form.Control
               type="lastName"
-              className="w-50 mb-4"
+              className="w-100 mb-4"
               onChange={(event) => handleRestaurantAddress(event)}
               value={restaurantAddress}
             />
             <strong>Cuisine</strong>
             <Form.Control
               type="email"
-              className="w-50 mb-4"
+              className="w-100 mb-4"
               onChange={(event) => handleCuisine(event)}
               value={cuisine}
             />
             <strong>Delivery Fee</strong>
             <Form.Control
               type="fee"
-              className="w-50 mb-4"
+              className="w-25 mb-4"
               onChange={(event) => handleDeliveryFee(event)}
               value={deliveryFee}
             />
             <strong>Minimum Order</strong>
             <Form.Control
               type="fee"
-              className="w-50 mb-4"
+              className="w-25 mb-4"
               onChange={(event) => handleMinimumOrder(event)}
               value={minimumOrder}
             />

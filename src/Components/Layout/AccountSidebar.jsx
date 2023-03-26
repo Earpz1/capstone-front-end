@@ -18,7 +18,7 @@ const AccountSidebar = () => {
   })
 
   return (
-    <div className="account-sidebar">
+    <div className="account-sidebar d-none d-md-block">
       <ul className="account-sidebar-nav">
         <h5>Account</h5>
         <Link to="/myDetails">

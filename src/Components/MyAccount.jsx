@@ -84,35 +84,35 @@ const MyAccount = () => {
   return (
     <>
       <Navbar />
-      <Container className="d-flex">
+      <Container fluid className="d-flex">
         <AccountSidebar />
-        <div className="account-content-container">
+        <div className="account-content-container w-100">
           <h1>My Details</h1>
           <span>View & edit your personal details</span>
-          <Form className="register-form mt-5 d-flex flex-column">
+          <Form className="register-form w-100 mt-5 d-flex flex-column align-items-xs-center align-items-md-start">
             <strong>First Name</strong>
             <Form.Control
               type="firstName"
-              className="w-50 mb-4"
+              className="w-100 mb-3"
               value={!userDetailsLoaded && firstName}
               onChange={(event) => handleFirstName(event)}
             />
             <strong>Last Name</strong>
             <Form.Control
               type="lastName"
-              className="w-50 mb-4"
+              className="w-100 mb-4"
               value={!userDetailsLoaded && lastName}
               onChange={(event) => handleLastName(event)}
             />
             <strong>Email</strong>
             <Form.Control
               type="email"
-              className="w-50 mb-4"
+              className="w-100 mb-4"
               value={!userDetailsLoaded && email}
               onChange={(event) => handleEmail(event)}
             />
             <strong>Delivery Address</strong>
-            <div className="w-50">
+            <div className="w-100">
               <GooglePlacesAutocomplete
                 apiKey={apiKey}
                 selectProps={{ address, onChange: setAddress }}
@@ -121,7 +121,7 @@ const MyAccount = () => {
           </Form>
           <Button
             variant="danger"
-            className="mt-5 mb-3 w-25"
+            className="mt-5 mb-3 w-100"
             onClick={handleSubmit}
           >
             Save Details
