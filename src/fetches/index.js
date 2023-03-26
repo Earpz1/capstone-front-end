@@ -159,7 +159,6 @@ export const getMenuItems = async (restaurantID) => {
     let response = await fetch(fetchURL, options)
     if (response.ok) {
       let data = await response.json()
-      console.log(data)
       return data
     }
   } catch (error) {}
@@ -180,7 +179,6 @@ export const SearchCity = async (city) => {
     let response = await fetch(fetchURL, options)
     if (response.ok) {
       let data = await response.json()
-      console.log(data)
       return data
     }
   } catch (error) {}
@@ -201,7 +199,6 @@ export const getMenuForRestaurant = async (restaurantID) => {
     let response = await fetch(fetchURL, options)
     if (response.ok) {
       let data = await response.json()
-      console.log(data)
       return data
     }
   } catch (error) {}
@@ -222,7 +219,6 @@ export const getMenuItemsFromCategory = async (restaurantID, category) => {
     let response = await fetch(fetchURL, options)
     if (response.ok) {
       let data = await response.json()
-      console.log(data)
       return data
     }
   } catch (error) {}
@@ -243,7 +239,7 @@ export const getRestaurantDetails = async (restaurantID) => {
     let response = await fetch(fetchURL, options)
     if (response.ok) {
       let data = await response.json()
-      console.log(data)
+
       return data
     }
   } catch (error) {}

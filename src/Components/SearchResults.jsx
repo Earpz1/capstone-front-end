@@ -36,6 +36,7 @@ const SearchResults = () => {
               <Link
                 to={`/menu?restaurant=${result._id}`}
                 className="search-link"
+                key={result._id}
               >
                 <Col className="search-result-card mt-5 d-flex">
                   <img

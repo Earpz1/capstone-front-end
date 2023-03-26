@@ -36,16 +36,13 @@ const Home = () => {
       `https://maps.googleapis.com/maps/api/geocode/json?latlng=${latitude},${longitude}&key=${apiKey}&type=locality`,
     )
     const data = await response.json()
-    console.log(data)
     setSearchTerm(data.results[0].address_components[2].long_name)
   }
 
   return (
     <>
       <Navbar />
-
       <img src="hero.jpeg" className="hero-image d-none d-md-block" />
-
       <div className="d-flex flex-column align-items-center search-container d-none d-md-block">
         <div className="d-flex flex-column align-items-center w-100">
           <span className="search-title">DIG IN TO YOUR NEXT MEAL</span>
@@ -74,9 +71,7 @@ const Home = () => {
       </div>
 
       <div className="d-flex flex-column align-items-center search-container-mobile d-block d-md-none">
-        <span className="search-title d-flex text-nowrap">
-          DIG IN TO YOUR NEXT MEAL
-        </span>
+        <span className="search-title d-flex text-nowrap">HUNGRY?</span>
         <Form className="w-75">
           <InputGroup className=" mb-3 mt-3">
             <Form.Control
@@ -95,11 +90,10 @@ const Home = () => {
             variant="danger"
             onClick={handleSearch}
           >
-            Search
+            DIG IN!
           </Button>
         </Form>
       </div>
-
       <Footer />
     </>
   )
