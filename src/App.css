@@ -19,8 +19,8 @@ a {
   background-color: white;
   height: 75px;
   margin-top: 10px;
-  padding-left: 70px;
-  padding-right: 70px;
+  padding-left: 20px;
+  padding-right: 20px;
   border-bottom: 3px solid red;
 }
 
@@ -42,7 +42,6 @@ a {
 .nav-list {
   font-size: 1.1rem;
   list-style-type: none;
-  margin-top: 10px;
 }
 
 .nav-list a {
@@ -60,6 +59,15 @@ a {
   margin-left: 40px;
   border-bottom: 3px solid rgb(255, 255, 255);
   text-decoration: none;
+}
+
+.account-sub-menu {
+  list-style-type: none;
+  margin-top: 10px;
+}
+
+.account-sub-menu li {
+  margin-top: 10px;
 }
 
 .nav-list-mobile {

@@ -21,7 +21,7 @@ const ManageMenu = () => {
   const [showAddCategory, setShowAddCategory] = useState(false)
   const [itemID, setItemID] = useState('')
   const [restaurantID, setRestaurantID] = useState('')
-  const [menuLoaded, setMenuLoaded] = useState(false)
+  const [menu, setMenu] = useState([])
 
   const { data: OwnerRestaurant, isLoading: OwnerRestaurantLoading } = useQuery(
     ['OwnerRestaurant'],
@@ -43,29 +43,31 @@ const ManageMenu = () => {
     },
   )
 
-  const {
-    data: menuItems,
-    isLoading: menuItemsLoading,
-    refetch: refetchMenu,
-  } = useQuery(
+  const { data: menuItems, isLoading: menuItemsLoading } = useQuery(
     ['menuItems', restaurantID],
     ({ queryKey }) => getMenuItems(queryKey[1]),
     {
-      enabled: OwnerRestaurant && Object.keys(OwnerRestaurant).length > 0,
+      enabled: OwnerRestaurantLoading === false,
       refetchOnWindowFocus: false,
+      onSuccess: (menuItems) => {
+        setMenu(menuItems)
+      },
     },
   )
 
   const { mutate: updateMenuCategories } = useMutation(
     (postData) =>
-      fetch(`http://localhost:3001/restaurant/deleteMenuCategory/${url}`, {
-        method: 'PUT',
-        headers: {
-          'Content-Type': 'application/json',
-          Authorization: 'Bearer ' + localStorage.getItem('accessToken'),
+      fetch(
+        `${process.env.REACT_APP_BACKEND_URL}restaurant/deleteMenuCategory/${url}`,
+        {
+          method: 'PUT',
+          headers: {
+            'Content-Type': 'application/json',
+            Authorization: 'Bearer ' + localStorage.getItem('accessToken'),
+          },
+          body: JSON.stringify(postData),
         },
-        body: JSON.stringify(postData),
-      }),
+      ),
     {
       onSuccess: () => {
         queryClient.invalidateQueries('menuCategories')
@@ -274,8 +276,8 @@ const ManageMenu = () => {
               </tr>
             </thead>
             <tbody>
-              {menuLoaded &&
-                menuItems.map((menuItem) => (
+              {!menuItemsLoading &&
+                menu.map((menuItem) => (
                   <tr>
                     <td>{menuItem.name}</td>
                     <td>{menuItem.price}</td>

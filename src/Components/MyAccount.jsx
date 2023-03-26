@@ -128,7 +128,6 @@ const MyAccount = () => {
           </Button>
         </div>
       </Container>
-      <Footer />
     </>
   )
 }

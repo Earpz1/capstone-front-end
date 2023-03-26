@@ -2,16 +2,19 @@ import { CiBurger } from 'react-icons/ci'
 import { GiHamburgerMenu } from 'react-icons/gi'
 import { Link } from 'react-router-dom'
 import { useState, useEffect } from 'react'
-import { Offcanvas } from 'react-bootstrap'
+import { Offcanvas, Accordion } from 'react-bootstrap'
 import { getUserDetails } from '../../fetches'
 import { useQuery } from 'react-query'
 
 const Navbar = () => {
   const [loggedIn, setLoggedIn] = useState(false)
   const [show, setShow] = useState(false)
+  const [showAccountLinks, setShowAccountLinks] = useState(false)
 
   const handleClose = () => setShow(false)
   const handleShow = () => setShow(true)
+
+  const handleShowAccountLinks = () => setShowAccountLinks(!showAccountLinks)
 
   const {
     data: userData,
@@ -48,24 +51,37 @@ const Navbar = () => {
             </Link>
             <li className="nav-list-mobile">Rewards</li>
             {loggedIn ? (
-              <Link to="/myDetails">
-                <li className="nav-list-mobile">Account</li>
-              </Link>
+              <>
+                <li className="nav-list" onClick={handleShowAccountLinks}>
+                  Account {showAccountLinks ? '-' : '+'}
+                </li>
+                {showAccountLinks && (
+                  <ul className="account-sub-menu">
+                    <Link to="/myDetails">
+                      <li>My Details</li>
+                    </Link>
+
+                    <li>My Rewards</li>
+                    {loggedIn &&
+                      !userDetailsLoaded &&
+                      userData.role !== 'owner' && (
+                        <Link to="/convertAccount">
+                          <li>Convert account</li>
+                        </Link>
+                      )}
+                  </ul>
+                )}
+              </>
             ) : (
               <Link to="/Login">
                 <li className="nav-list-mobile">Log in</li>
-              </Link>
-            )}
-            {loggedIn && !userDetailsLoaded && (
-              <Link to="/manageRestaurant">
-                <li className="nav-list-mobile">Manage Restaurant</li>
               </Link>
             )}
           </ul>
         </Offcanvas.Body>
       </Offcanvas>
 
-      <div className="d-flex justify-content-between align-items-center nav-container">
+      <div className="d-flex justify-content-between w-100 align-items-center nav-container">
         <div className="d-flex justify-content-between left-nav d-none d-lg-block w-100">
           <img src="logo.png" width="60" className="mb-2" />
           <span>DIG IN</span>
@@ -98,7 +114,7 @@ const Navbar = () => {
           </ul>
         </div>
 
-        <div className="align-items-center right-nav d-block d-lg-none">
+        <div className="align-items-end right-nav d-block d-lg-none">
           <GiHamburgerMenu className="burger-menu" onClick={handleShow} />
         </div>
       </div>
