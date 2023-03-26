@@ -77,7 +77,7 @@ const MyAccount = () => {
       firstName: firstName,
       lastName: lastName,
       email: email,
-      address: address.label,
+      address: address,
     })
   }
 
