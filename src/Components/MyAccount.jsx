@@ -22,7 +22,7 @@ const MyAccount = () => {
 
   const { mutate: updateUserDetails } = useMutation(
     (postData) =>
-      fetch(`${process.env.REACT_APP_BACKEND_URL}/users/editDetails`, {
+      fetch(`${process.env.REACT_APP_BACKEND_URL}users/editDetails`, {
         method: 'PUT',
         headers: {
           'Content-Type': 'application/json',
