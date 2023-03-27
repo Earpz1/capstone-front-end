@@ -35,7 +35,7 @@ const Dashboard = () => {
     <>
       <Navbar />
       <Container fluid className="w-100">
-        <SlSplitPanel position="30">
+        <SlSplitPanel position="50">
           <div
             slot="start"
             style={{
