@@ -4,6 +4,7 @@
   "private": true,
   "dependencies": {
     "@googlemaps/google-maps-services-js": "^3.3.27",
+    "@shoelace-style/shoelace": "^2.3.0",
     "@stripe/react-stripe-js": "^2.0.0",
     "@stripe/stripe-js": "^1.49.0",
     "@testing-library/jest-dom": "^5.16.5",

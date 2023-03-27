@@ -1,3 +1,4 @@
+import { SlButton } from '@shoelace-style/shoelace/dist/react'
 import { getOrder } from '../fetches'
 import OrderedItem from './OrderedItem'
 import { Dropdown, Button } from 'react-bootstrap'
@@ -32,7 +33,7 @@ const OrdersMainFrame = (props) => {
       ),
     {
       onSuccess: () => {
-        queryClient.invalidateQueries('currentOrder')
+        queryClient.invalidateQueries()
       },
     },
   )
@@ -54,9 +55,8 @@ const OrdersMainFrame = (props) => {
   return (
     <>
       {!getCurrentOrder ? (
-        <div className="order-main-container w-75">
+        <div className="order-main-container w-75 mt-5">
           <div className="d-flex justify-content-evenly align-items-center">
-            <b>Order: {currentOrder._id}</b>
             {currentOrder.orderStatus === 'Accepted' ||
             currentOrder.orderStatus === 'Out for Delivery' ? (
               <div className="d-flex align-items-center mr-3">
@@ -91,16 +91,16 @@ const OrdersMainFrame = (props) => {
               ''
             )}
 
-            {currentOrder.orderStatus === 'pending' && (
+            {currentOrder.orderStatus === 'Pending' && (
               <div className="d-flex justify-content-between w-50">
                 <Button
                   variant="success"
-                  className="w-50"
+                  className="w-25"
                   onClick={() => acceptOrder(currentOrder._id)}
                 >
                   Accept
                 </Button>
-                <Button variant="danger" className="w-50">
+                <Button variant="danger" className="w-25">
                   Reject
                 </Button>
               </div>

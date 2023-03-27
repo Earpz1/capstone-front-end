@@ -33,7 +33,7 @@ const ConfirmOrder = () => {
 
   useEffect(() => {
     submitOrder({
-      orderStatus: 'pending',
+      orderStatus: 'Pending',
     })
   }, [])
 

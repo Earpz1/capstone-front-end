@@ -96,7 +96,7 @@ const Menu = () => {
 
   const { mutate: placeOrder } = useMutation(
     (postData) =>
-      fetch('http://localhost:3001/orders/create', {
+      fetch(`${process.env.REACT_APP_BACKEND_URL}orders/create`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',

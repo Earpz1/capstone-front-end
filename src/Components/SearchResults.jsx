@@ -1,5 +1,5 @@
 import { Rating } from 'react-simple-star-rating'
-
+import { SlRating } from '@shoelace-style/shoelace/dist/react'
 import { SearchCity } from '../fetches'
 import Navbar from './Layout/Navbar'
 import { useEffect } from 'react'
@@ -48,11 +48,11 @@ const SearchResults = () => {
                     <div className="d-flex justify-content-md-between justify-content-center w-50">
                       <p>{result.cuisine}</p>
                       <div className="d-flex">
-                        <Rating
-                          className="d-none d-md-block"
-                          size={30}
-                          readonly={true}
-                          initialValue="5"
+                        <SlRating
+                          label="Rating"
+                          readonly
+                          value={3}
+                          style={{ '--symbol-size': '1.5rem' }}
                         />
                       </div>
                     </div>

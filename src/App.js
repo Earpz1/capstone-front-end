@@ -1,6 +1,7 @@
 import './App.css'
 import 'bootstrap/dist/css/bootstrap.min.css'
 import 'normalize.css'
+import '@shoelace-style/shoelace/dist/themes/light.css'
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom'
 import Login from './Components/Login'
 import Register from './Components/Register'

@@ -1,30 +1,27 @@
 import { useQuery, useMutation } from 'react-query'
-import { getPendingOrders } from '../fetches'
 import { useLocation } from 'react-router-dom'
 import { Button, Container, Dropdown } from 'react-bootstrap'
 import { useQueryClient } from 'react-query'
 import { Link } from 'react-router-dom'
+import { inProgressOrders } from '../fetches'
 
-const PendingSidebarOrder = (props) => {
+const InProgressSideBar = () => {
   const queryClient = useQueryClient()
   const params = useLocation()
   const searchParams = new URLSearchParams(params.search)
   const restaurant = searchParams.get('restaurantID')
 
-  const {
-    data: pendingOrders,
-    isLoading: pendingOrdersLoaded,
-    refetch: getPending,
-  } = useQuery(
-    ['getPendingOrders', restaurant],
-    ({ queryKey }) => getPendingOrders(queryKey[1]),
+  const { data: progressOrders, isLoading: inProgressLoaded } = useQuery(
+    ['inProgress', restaurant],
+    ({ queryKey }) => inProgressOrders(queryKey[1]),
 
     {
-      onSuccess: (pendingOrders) => {
-        props.count(pendingOrders.length)
+      onSuccess: (progressOrders) => {
+        console.log(progressOrders)
       },
     },
   )
+
   const { mutate: submitOrder } = useMutation(
     (postData) =>
       fetch(
@@ -45,6 +42,7 @@ const PendingSidebarOrder = (props) => {
     },
   )
 
+  //Function to convert a date object to just time in HH:MM format
   const convertTime = (date) => {
     const time = new Date(date)
     const hours = time.getHours()
@@ -56,8 +54,8 @@ const PendingSidebarOrder = (props) => {
     <>
       <Container className="d-flex flex-column">
         {' '}
-        {!pendingOrdersLoaded &&
-          pendingOrders.map((order) => {
+        {!inProgressLoaded &&
+          progressOrders.map((order) => {
             return (
               <>
                 <Link
@@ -95,4 +93,4 @@ const PendingSidebarOrder = (props) => {
   )
 }
 
-export default PendingSidebarOrder
+export default InProgressSideBar

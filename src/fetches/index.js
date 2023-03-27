@@ -306,6 +306,26 @@ export const getCompletedOrders = async (restaurantID) => {
   } catch (error) {}
 }
 
+//Get orders that are in progress
+export const inProgressOrders = async (restaurantID) => {
+  const options = {
+    method: 'GET',
+    headers: {
+      Authorization: 'Bearer ' + localStorage.getItem('accessToken'),
+    },
+  }
+
+  const fetchURL = `${process.env.REACT_APP_BACKEND_URL}orders/${restaurantID}/inProgress`
+
+  try {
+    let response = await fetch(fetchURL, options)
+    if (response.ok) {
+      let data = await response.json()
+      return data
+    }
+  } catch (error) {}
+}
+
 //Get the clientKey
 export const clientKey = async (orderID) => {
   const options = {
