@@ -90,21 +90,6 @@ const OrdersMainFrame = (props) => {
             ) : (
               ''
             )}
-
-            {currentOrder.orderStatus === 'Pending' && (
-              <div className="d-flex justify-content-between w-50">
-                <Button
-                  variant="success"
-                  className="w-25"
-                  onClick={() => acceptOrder(currentOrder._id)}
-                >
-                  Accept
-                </Button>
-                <Button variant="danger" className="w-25">
-                  Reject
-                </Button>
-              </div>
-            )}
           </div>
           <hr />
           <div className="d-flex flex-column">

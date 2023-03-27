@@ -1,3 +1,4 @@
+import { SlCard, SlButton } from '@shoelace-style/shoelace/dist/react'
 import { useQuery, useMutation } from 'react-query'
 import { getPendingOrders } from '../fetches'
 import { useLocation } from 'react-router-dom'
@@ -52,8 +53,15 @@ const PendingSidebarOrder = (props) => {
     return `${hours}:${minutes}`
   }
 
+  const css = `
+  .card-header {
+    min-width: 500px;
+  }
+  `
+
   return (
     <>
+      <style>{css}</style>
       <Container className="d-flex flex-column">
         {' '}
         {!pendingOrdersLoaded &&
@@ -64,28 +72,36 @@ const PendingSidebarOrder = (props) => {
                   className="no-link"
                   to={`?restaurantID=${restaurant}&orderID=${order._id}`}
                 >
-                  <div key={order._id} className="order-container mt-4">
-                    <div className="d-flex flex-column justify-content-evenly align-items-center">
-                      <h3 className="name">
-                        {order.customerID.firstName} {order.customerID.lastName}
-                      </h3>
-                      {order.orderStatus !== 'pending' && (
-                        <small>{order.orderStatus} </small>
-                      )}
+                  <SlCard className="card-header">
+                    <div slot="header">
+                      <div className="d-flex justify-content-between align-items-center">
+                        <strong>
+                          {order.customerID.firstName}{' '}
+                          {order.customerID.lastName}
+                        </strong>
+                        <div>
+                          <SlButton slot="header" variant="success">
+                            Accept
+                          </SlButton>{' '}
+                          <SlButton slot="header" variant="danger">
+                            Decline
+                          </SlButton>
+                        </div>
+                      </div>
                     </div>
-                    <hr />
-                    <ul>
-                      <li>
-                        <b>Delivery to:</b> {order.customerID.address}
-                      </li>
-                      <li>
-                        <b>Order total:</b> £{order.totalPrice}
-                      </li>
-                      <li>
-                        <b>Order time: </b> {convertTime(order.createdAt)}
-                      </li>
-                    </ul>
-                  </div>
+                    <div className="d-flex flex-column">
+                      <span>
+                        <strong>Delivery to: </strong> {order.address}
+                      </span>
+                      <span>
+                        <strong>Order Total: </strong>£{order.totalPrice}
+                      </span>
+                      <span>
+                        <strong>Order Placed: </strong>{' '}
+                        {convertTime(order.createdAt)}
+                      </span>
+                    </div>
+                  </SlCard>
                 </Link>
               </>
             )

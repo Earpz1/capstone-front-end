@@ -1,5 +1,4 @@
 import './App.css'
-import 'bootstrap/dist/css/bootstrap.min.css'
 import 'normalize.css'
 import '@shoelace-style/shoelace/dist/themes/light.css'
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom'
@@ -18,6 +17,7 @@ import Dashboard from './Components/Dashboard'
 import ConfirmOrder from './Components/ConfirmOrder'
 import MyOrders from './Components/MyOrders'
 import Footer from './Components/Layout/Footer'
+import 'bootstrap/dist/css/bootstrap.min.css'
 
 function App() {
   const client = new QueryClient()
