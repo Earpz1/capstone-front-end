@@ -39,7 +39,7 @@ const CheckoutForm = (props) => {
         //`Elements` instance that was used to create the Payment Element
         elements,
         confirmParams: {
-          return_url: `/ConfirmOrder?orderID=${orderID}`,
+          return_url: `https://digin-eosin.vercel.app/orderConfirmed?orderID=${orderID}`,
         },
       })
 
