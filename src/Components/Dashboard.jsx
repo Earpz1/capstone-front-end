@@ -22,9 +22,14 @@ const Dashboard = () => {
 
   const [sidebar, setSidebar] = useState('pending')
   const [pendingOrders, setPendingOrders] = useState(0)
+  const [inProgressOrders, setInProgressOrders] = useState(0)
 
   const countPendingOrders = (orders) => {
     setPendingOrders(orders)
+  }
+
+  const countInProgressOrders = (orders) => {
+    setInProgressOrders(orders)
   }
 
   const handleSidebar = (change) => {
@@ -35,7 +40,7 @@ const Dashboard = () => {
     <>
       <Navbar />
       <Container fluid className="w-100">
-        <SlSplitPanel position="50">
+        <SlSplitPanel disabled position="37">
           <div
             slot="start"
             style={{
@@ -51,7 +56,7 @@ const Dashboard = () => {
                 Pending Orders ({pendingOrders})
               </SlTab>
               <SlTab slot="nav" panel="custom">
-                In Progress
+                In Progress ({inProgressOrders})
               </SlTab>
               <SlTab slot="nav" panel="advanced">
                 Completed
@@ -61,7 +66,7 @@ const Dashboard = () => {
                 <PendingSidebarOrder count={countPendingOrders} />
               </SlTabPanel>
               <SlTabPanel name="custom">
-                <InProgressSideBar />
+                <InProgressSideBar count={countInProgressOrders} />
               </SlTabPanel>
               <SlTabPanel name="advanced">
                 <CompletedSidebarOrders />

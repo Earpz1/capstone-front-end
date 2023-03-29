@@ -12,11 +12,7 @@ const PendingSidebarOrder = (props) => {
   const searchParams = new URLSearchParams(params.search)
   const restaurant = searchParams.get('restaurantID')
 
-  const {
-    data: pendingOrders,
-    isLoading: pendingOrdersLoaded,
-    refetch: getPending,
-  } = useQuery(
+  const { data: pendingOrders, isLoading: pendingOrdersLoaded } = useQuery(
     ['getPendingOrders', restaurant],
     ({ queryKey }) => getPendingOrders(queryKey[1]),
 
@@ -26,24 +22,25 @@ const PendingSidebarOrder = (props) => {
       },
     },
   )
-  const { mutate: submitOrder } = useMutation(
-    (postData) =>
-      fetch(
-        `${process.env.REACT_APP_BACKEND_URL}orders/updateOrder/${postData.id}`,
-        {
-          method: 'PUT',
-          headers: {
-            'Content-Type': 'application/json',
-            Authorization: 'Bearer ' + localStorage.getItem('accessToken'),
-          },
-          body: JSON.stringify(postData.data),
+
+  const { mutate: submitOrder } = useMutation((postData) =>
+    fetch(
+      `${process.env.REACT_APP_BACKEND_URL}orders/updateOrder/${postData.id}`,
+      {
+        method: 'PUT',
+        headers: {
+          'Content-Type': 'application/json',
+          Authorization: 'Bearer ' + localStorage.getItem('accessToken'),
         },
-      ),
-    {
-      onSuccess: () => {
-        queryClient.invalidateQueries()
+        body: JSON.stringify(postData.data),
       },
-    },
+      {
+        onSuccess: () => {
+          queryClient.invalidateQueries('getPendingOrders')
+          queryClient.invalidateQueries('inProgress')
+        },
+      },
+    ),
   )
 
   const convertTime = (date) => {
@@ -51,6 +48,13 @@ const PendingSidebarOrder = (props) => {
     const hours = time.getHours()
     const minutes = time.getMinutes()
     return `${hours}:${minutes}`
+  }
+
+  const acceptOrder = (id) => {
+    submitOrder({
+      id: id,
+      data: { orderStatus: 'Accepted' },
+    })
   }
 
   const css = `
@@ -64,6 +68,15 @@ const PendingSidebarOrder = (props) => {
       <style>{css}</style>
       <Container className="d-flex flex-column">
         {' '}
+        {!pendingOrdersLoaded && pendingOrders.length === 0 && (
+          <SlCard className="card-header">
+            <div slot="header">
+              <div className="d-flex justify-content-between align-items-center">
+                <strong>No pendings orders </strong>
+              </div>
+            </div>
+          </SlCard>
+        )}
         {!pendingOrdersLoaded &&
           pendingOrders.map((order) => {
             return (
@@ -80,7 +93,11 @@ const PendingSidebarOrder = (props) => {
                           {order.customerID.lastName}
                         </strong>
                         <div>
-                          <SlButton slot="header" variant="success">
+                          <SlButton
+                            slot="header"
+                            variant="success"
+                            onClick={() => acceptOrder(order._id)}
+                          >
                             Accept
                           </SlButton>{' '}
                           <SlButton slot="header" variant="danger">
@@ -103,6 +120,7 @@ const PendingSidebarOrder = (props) => {
                     </div>
                   </SlCard>
                 </Link>
+                <br />
               </>
             )
           })}

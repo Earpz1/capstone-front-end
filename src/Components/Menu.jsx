@@ -240,7 +240,6 @@ const Menu = () => {
           )}
         </div>
       </Container>
-      <Footer />
     </>
   )
 }
