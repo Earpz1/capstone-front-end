@@ -36,8 +36,7 @@ const PendingSidebarOrder = (props) => {
       },
       {
         onSuccess: () => {
-          queryClient.invalidateQueries('getPendingOrders')
-          queryClient.invalidateQueries('inProgress')
+          queryClient.invalidateQueries()
         },
       },
     ),

@@ -42,7 +42,7 @@ const Home = () => {
   return (
     <>
       <Navbar />
-      <img src="hero.jpeg" className="hero-image d-none d-md-block" />
+      <img src="courier.png" className="hero-image d-none d-md-block" />
       <div className="d-flex flex-column align-items-center search-container d-none d-md-block">
         <div className="d-flex flex-column align-items-center w-100">
           <span className="search-title">DIG IN TO YOUR NEXT MEAL</span>

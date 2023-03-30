@@ -38,7 +38,7 @@ const InProgressSideBar = (props) => {
       ),
     {
       onSuccess: () => {
-        queryClient.invalidateQueries('inProgressOrders')
+        queryClient.invalidateQueries()
       },
     },
   )

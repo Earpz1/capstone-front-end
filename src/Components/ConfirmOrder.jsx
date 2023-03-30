@@ -42,7 +42,7 @@ const ConfirmOrder = () => {
       <Navbar />
       <Container className="d-flex justify-content-center">
         <div className="d-flex flex-column align-items-center mt-5">
-          <img src="https://www.easy-gst.in/wp-content/uploads/2017/07/success-icon-10-300x300.png" />
+          <img src="success.png" />
           <h1> Thank you, your order has been sent to the restaurant!</h1>
           <h5>
             You can view the progress of your order in your "My orders" section
