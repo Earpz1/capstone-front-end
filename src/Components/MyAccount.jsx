@@ -73,18 +73,20 @@ const MyAccount = () => {
   const handleSubmit = (event) => {
     event.preventDefault()
 
+    console.log(address)
+
     updateUserDetails({
       firstName: firstName,
       lastName: lastName,
       email: email,
-      address: address,
+      address: address.label,
     })
   }
 
   return (
     <>
       <Navbar />
-      <Container fluid className="d-flex">
+      <Container fluid className=" w-75 d-flex">
         <AccountSidebar />
         <div className="account-content-container w-100">
           <h1>My Details</h1>

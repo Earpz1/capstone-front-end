@@ -14,8 +14,8 @@ const OrderedItem = ({ order, completeOrder }) => {
           <div slot="header">
             <div className="d-flex align-items-center">
               <span>
-                <strong>Order Notes: </strong>
-                Please can you ring the doorbell?
+                <strong>OrderID: </strong>
+                {order._id}
               </span>
             </div>
           </div>

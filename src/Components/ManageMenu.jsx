@@ -20,7 +20,7 @@ const ManageMenu = () => {
   const [showAddItem, setShowAddItem] = useState(false)
   const [showAddCategory, setShowAddCategory] = useState(false)
   const [itemID, setItemID] = useState('')
-  const [restaurantID, setRestaurantID] = useState('')
+  const [restaurantID, setRestaurantID] = useState('6411e899cf7930e0ac2b03eb')
   const [menu, setMenu] = useState([])
 
   const { data: OwnerRestaurant, isLoading: OwnerRestaurantLoading } = useQuery(
@@ -80,7 +80,7 @@ const ManageMenu = () => {
 
   const { mutate: addMenuItem } = useMutation(
     (postData) =>
-      fetch(`http://localhost:3001/menuItem/newItem`, {
+      fetch(`${process.env.REACT_APP_BACKEND_URL}menuItem/newItem`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -97,13 +97,16 @@ const ManageMenu = () => {
 
   const { mutate: deleteMenuItem } = useMutation(
     (postData) =>
-      fetch(`http://localhost:3001/menuItem/deleteItem/${itemID}`, {
-        method: 'DELETE',
-        headers: {
-          'Content-Type': 'application/json',
-          Authorization: 'Bearer ' + localStorage.getItem('accessToken'),
+      fetch(
+        `${process.env.REACT_APP_BACKEND_URL}menuItem/deleteItem/${itemID}`,
+        {
+          method: 'DELETE',
+          headers: {
+            'Content-Type': 'application/json',
+            Authorization: 'Bearer ' + localStorage.getItem('accessToken'),
+          },
         },
-      }),
+      ),
     {
       onSuccess: () => {
         queryClient.invalidateQueries('menuItems')
@@ -192,8 +195,8 @@ const ManageMenu = () => {
         <div className="account-content-container">
           <h1>Manage Menu</h1>
           <span>
-            Manage your menu here. Add, edit or delete menu items and sort them
-            into categories
+            Manage your menu here. Add or delete menu items and sort them into
+            categories
           </span>
           <hr />
 
@@ -283,7 +286,6 @@ const ManageMenu = () => {
                     <td>{menuItem.price}</td>
                     <td>{menuItem.category}</td>
                     <td>
-                      <AiFillEdit />{' '}
                       <AiFillDelete
                         onClick={() => handleDeleteMenuItem(menuItem._id)}
                       />

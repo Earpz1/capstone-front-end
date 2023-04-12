@@ -102,7 +102,8 @@ const InProgressSideBar = (props) => {
                     </div>
                     <div className="d-flex flex-column">
                       <span>
-                        <strong>Delivery to: </strong> {order.address}
+                        <strong>Delivery to: </strong>{' '}
+                        {order.customerID.address}
                       </span>
                       <span>
                         <strong>Order Total: </strong>£{order.totalPrice}

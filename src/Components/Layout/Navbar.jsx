@@ -52,7 +52,7 @@ const Navbar = () => {
             <Link to="/myOrders">
               <li className="nav-list-mobile">Orders</li>
             </Link>
-            <li className="nav-list-mobile">Rewards</li>
+
             {loggedIn ? (
               <>
                 <li className="nav-list" onClick={handleShowAccountLinks}>
@@ -128,9 +128,7 @@ const Navbar = () => {
             <Link to="/myOrders">
               <li className="nav-list-desktop">Orders</li>
             </Link>
-            <Link to="/">
-              <li className="nav-list-desktop">Rewards</li>
-            </Link>
+
             {loggedIn ? (
               <Link to="/myDetails">
                 <li className="nav-list-desktop">Account</li>

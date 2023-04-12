@@ -33,13 +33,7 @@ const OrdersMainFrame = (props) => {
     setCountCompleted(() => countCompleted - 1)
   }
 
-  return (
-    <>
-      {!getCurrentOrder && currentOrder.orderStatus === 'Accepted' && (
-        <OrderedItem order={currentOrder} />
-      )}
-    </>
-  )
+  return <>{!getCurrentOrder && <OrderedItem order={currentOrder} />}</>
 }
 
 export default OrdersMainFrame

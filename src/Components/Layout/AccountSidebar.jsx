@@ -27,7 +27,6 @@ const AccountSidebar = () => {
         <Link to="/myOrders">
           <li>My Orders</li>
         </Link>
-        <li>My Rewards</li>
         {loggedIn && !userDetailsLoaded && userData.role !== 'owner' && (
           <Link to="/convertAccount">
             <li>Convert account</li>
@@ -45,11 +44,10 @@ const AccountSidebar = () => {
             <Link to="/restaurantDetails">
               <li>Restaurant Details</li>
             </Link>
-            <li>History</li>
+
             <Link to="/manageMenu">
               <li>Menu</li>
             </Link>
-            <li>Reviews</li>
           </ul>
         </>
       )}

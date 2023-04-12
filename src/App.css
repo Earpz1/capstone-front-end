@@ -116,7 +116,7 @@ a {
 
 .search-container {
   position: relative;
-  top: 325px;
+  top: 400px;
   left: 33%;
   width: 33%;
   height: 200px;
@@ -437,4 +437,9 @@ a {
 
 .completedCard {
   background-color: green;
+}
+
+.orderSuccess {
+  width: 300px;
+  height: 300px;
 }

@@ -40,8 +40,10 @@ const SearchResults = () => {
               >
                 <Col className="search-result-card mt-5 d-flex">
                   <img
-                    src="https://picsum.photos/300/150"
+                    src={result.imageURL}
                     className="search-card-image d-none d-md-block"
+                    width="300px"
+                    height="150px"
                   />
                   <div className="d-flex flex-column align-items-center w-100">
                     <h1 className="mt-1">{result.name}</h1>

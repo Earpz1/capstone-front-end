@@ -130,8 +130,10 @@ const Menu = () => {
         <div className="menuHeader justify-content-center w-100">
           <div className="top-menu-banner mt-5 d-flex">
             <img
-              src="https://picsum.photos/300/150"
+              src="pizza1.png"
               className="search-card-image"
+              width="200px"
+              height="150px"
             />
             <div className="d-flex flex-column align-items-center w-75">
               <h1 className="mt-1">

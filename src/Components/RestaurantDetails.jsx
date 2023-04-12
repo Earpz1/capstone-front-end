@@ -86,7 +86,7 @@ const RestaurantDetails = () => {
       <Navbar />
       <Container className="d-flex">
         <AccountSidebar />
-        <div className="account-content-container">
+        <div className="account-content-container w-75">
           <h1>Restaurant Details</h1>
           <span>View and edit the details of your restaurant here</span>
           <Form className="register-form mt-5 d-flex flex-column">
