@@ -18,7 +18,7 @@ const ConvertAccount = () => {
   const [convertSuccess, setConvertSuccess] = useState(false)
 
   const { mutate: createRestaurant } = useMutation((postData) =>
-    fetch('http://localhost:3001/restaurant/create', {
+    fetch(`${process.env.REACT_APP_BACKEND_URL}restaurant/create`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
@@ -30,7 +30,7 @@ const ConvertAccount = () => {
 
   const { mutate: convertAccount } = useMutation(
     (postData) =>
-      fetch('http://localhost:3001/users/editDetails', {
+      fetch(`${process.env.REACT_APP_BACKEND_URL}users/editDetails`, {
         method: 'PUT',
         headers: {
           'Content-Type': 'application/json',
